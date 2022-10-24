@@ -23,15 +23,12 @@ Nunc commodo mauris a egestas ullamcorper. Nullam finibus rhoncus congue. Suspen
 Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Etiam luctus pretium pellentesque. In nec tellus gravida ante maximus congue tempus non orci. Vivamus vel molestie sem. Nulla odio purus, condimentum et leo sagittis, semper tristique elit. Ut dui nisi, condimentum nec leo suscipit, fringilla sodales arcu. Nulla at suscipit augue, et feugiat diam. Nulla rhoncus augue a neque interdum venenatis. Praesent pellentesque lacus facilisis, bibendum metus at, dignissim sapien. Sed malesuada neque nulla, non egestas libero vulputate eu. Mauris a varius orci. Nullam euismod elit eu facilisis aliquam. Ut lectus mi, tincidunt at elit a, finibus feugiat ipsum. Integer vitae venenatis nisl. Mauris ac tristique ligula.''';
 
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData.dark(),
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Teleprompter'),
-        ),
-        body: const Center(
-          child: TeleprompterWidget(text: text),
-        ),
+      home: TeleprompterWidget(
+        title: 'Script name',
+        text: text,
       ),
     );
   }
