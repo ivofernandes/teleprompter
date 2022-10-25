@@ -37,7 +37,9 @@ mixin TeleprompterSettingsState {
   double _textSize = 14;
   Color _textColor = Colors.greenAccent;
 
-  Future<void> loadSettings(BuildContext context) async {
+  Future<void> loadSettings(
+      BuildContext context, Color defaultTextColor) async {
+    _textColor = defaultTextColor;
     final SharedPreferences prefs = await SharedPreferences.getInstance();
 
     // Speed

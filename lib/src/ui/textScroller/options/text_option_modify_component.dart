@@ -19,6 +19,7 @@ class TextOptionModifyComponent extends StatelessWidget {
     required this.decrease,
     required this.increase,
     required this.hit,
+    super.key,
   });
 
   @override

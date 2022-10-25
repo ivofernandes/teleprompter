@@ -99,7 +99,8 @@ class _TextScrollerComponentState extends State<TextScrollerComponent>
                     teleprompterState.refresh();
                   },
                   icon: const Icon(Icons.fiber_manual_record_sharp,
-                      color: Colors.red))
+                      color: Colors.red),
+                )
         ],
       ),
       body: Column(

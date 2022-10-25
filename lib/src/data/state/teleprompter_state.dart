@@ -10,9 +10,9 @@ class TeleprompterState
   int _optionIndex = 0;
   double _scrollPosition = 0;
 
-  TeleprompterState(BuildContext context) {
+  TeleprompterState(BuildContext context, defaultTextColor) {
     prepareCamera().then((value) => refresh());
-    loadSettings(context).then((value) => refresh());
+    loadSettings(context, defaultTextColor).then((value) => refresh());
   }
 
   bool isScrolling() => _scrolling;

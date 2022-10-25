@@ -8,7 +8,6 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     const String text =
@@ -26,8 +25,7 @@ Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac tu
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData.dark(),
-      home: TeleprompterWidget(
-        title: 'Script name',
+      home: const TeleprompterWidget(
         text: text,
       ),
     );

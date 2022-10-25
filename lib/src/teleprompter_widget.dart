@@ -11,6 +11,7 @@ class TeleprompterWidget extends StatefulWidget {
     required this.text,
     this.title = 'Script name',
     this.savedToGallery = 'Video recorded saved to your gallery',
+    this.defaultTextColor = Colors.greenAccent,
     super.key,
   });
 
@@ -22,6 +23,9 @@ class TeleprompterWidget extends StatefulWidget {
 
   /// Message to show when the video is saved to the gallery
   final String savedToGallery;
+
+  /// Color of the teleprompter text at the start
+  final Color defaultTextColor;
 
   @override
   _TeleprompterWidgetState createState() => _TeleprompterWidgetState();
@@ -37,7 +41,7 @@ class _TeleprompterWidgetState extends State<TeleprompterWidget> {
 
   @override
   Widget build(BuildContext context) => ChangeNotifierProvider(
-        create: (_) => TeleprompterState(context),
+        create: (_) => TeleprompterState(context, widget.defaultTextColor),
         child: Consumer<TeleprompterState>(
           builder: (context, teleprompterState, child) {
             final CameraController? cameraController =

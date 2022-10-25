@@ -9,6 +9,7 @@ class TextOptionNavigatorIconComponent extends StatelessWidget {
     required this.index,
     this.updateIndex,
     this.color,
+    super.key,
   });
 
   @override
