@@ -6,14 +6,14 @@ Features:
 - Automatic save to gallery on stop recording
 
 Demo using the example of the package:
-![Teleprompter demo](https://github.com/ivofernandes/teleprompter/blob/master/doc/example.gif?raw=true)
+![Teleprompter demo](https://github.com/ivofernandes/teleprompter/raw/main/doc/example.gif?raw=true)
 
 ## Getting started
 
 Add the dependency to your `pubspec.yaml`:
 
 ```
-teleprompter: ^0.0.1
+teleprompter: ^0.0.4
 ```
 
 Or run the following command in the terminal in the root of your project: 
