@@ -12,6 +12,10 @@ class TeleprompterWidget extends StatefulWidget {
     this.title = 'Script name',
     this.savedToGallery = 'Video recorded saved to your gallery',
     this.defaultTextColor = Colors.greenAccent,
+    this.startRecordingButton =
+        const Icon(Icons.fiber_manual_record_sharp, color: Colors.red),
+    this.stopRecordingButton = const Icon(Icons.stop, color: Colors.red),
+    this.floatingButtonShape,
     super.key,
   });
 
@@ -27,6 +31,15 @@ class TeleprompterWidget extends StatefulWidget {
   /// Color of the teleprompter text at the start
   final Color defaultTextColor;
 
+  /// Start record button
+  final Widget startRecordingButton;
+
+  /// Stop record button
+  final Widget stopRecordingButton;
+
+  /// Shape of the floating button
+  final ShapeBorder? floatingButtonShape;
+
   @override
   _TeleprompterWidgetState createState() => _TeleprompterWidgetState();
 }
@@ -41,12 +54,16 @@ class _TeleprompterWidgetState extends State<TeleprompterWidget> {
 
   @override
   Widget build(BuildContext context) => ChangeNotifierProvider(
-        create: (_) => TeleprompterState(context, widget.defaultTextColor),
+        create: (_) => TeleprompterState(
+          context,
+          widget.defaultTextColor,
+        ),
         child: Consumer<TeleprompterState>(
           builder: (context, teleprompterState, child) {
             final CameraController? cameraController =
                 CameraService().getCameraController();
 
+            // Stack with a camera behind and text above:
             return Stack(
               children: [
                 cameraController != null
@@ -60,6 +77,9 @@ class _TeleprompterWidgetState extends State<TeleprompterWidget> {
                     title: widget.title,
                     text: widget.text,
                     savedToGallery: widget.savedToGallery,
+                    stopRecordingButton: widget.stopRecordingButton,
+                    startRecordingButton: widget.startRecordingButton,
+                    floatingButtonShape: widget.floatingButtonShape,
                   ),
                 )
               ],

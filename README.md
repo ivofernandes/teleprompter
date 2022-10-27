@@ -1,5 +1,9 @@
 # teleprompter
 Flutter package to create a teleprompter from a simple text
+Features:
+- Play the text generated in your app with an automatic scroll
+- Record video directly inside the app
+- Automatic save to gallery on stop recording
 
 ## Getting started
 
@@ -73,7 +77,7 @@ If editing `Info.plist` as text, add:
 
 ### Android
 
-# Update the min sdk version to work on android
+Update the min sdk version to work on android
 Change the minimum Android sdk version to 21 (or higher) in your `android/app/build.gradle` file.
 
 ```groovy

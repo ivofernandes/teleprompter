@@ -11,7 +11,15 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const String text =
-        '''Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum sollicitudin elit id ex pellentesque, vitae blandit neque pulvinar. Aenean maximus ante nisi, ac lobortis erat euismod vitae. Etiam porttitor malesuada turpis, non lacinia diam tristique non. Nam pulvinar neque massa, sit amet gravida elit fringilla sit amet. Cras quis tristique diam. Cras commodo lacus at lorem fermentum, at aliquam eros facilisis. Morbi fringilla laoreet commodo. Sed placerat magna id arcu hendrerit, ac porttitor sapien porttitor. Phasellus mauris elit, condimentum ac iaculis ut, iaculis a urna. Morbi posuere sit amet diam ut auctor. Morbi sodales odio eleifend mauris venenatis ultricies. Aenean efficitur libero nec nulla fringilla, sit amet dignissim velit consectetur. Suspendisse consectetur porta arcu, sagittis dictum quam.
+        '''Flutter package to create a teleprompter from a simple text
+Features:
+- Play the text generated in your app with an automatic scroll
+- Record video directly inside the app
+- Automatic save to gallery on stop recording
+    
+    The following text is just to make it easier to test the scrolling functionality:
+    
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum sollicitudin elit id ex pellentesque, vitae blandit neque pulvinar. Aenean maximus ante nisi, ac lobortis erat euismod vitae. Etiam porttitor malesuada turpis, non lacinia diam tristique non. Nam pulvinar neque massa, sit amet gravida elit fringilla sit amet. Cras quis tristique diam. Cras commodo lacus at lorem fermentum, at aliquam eros facilisis. Morbi fringilla laoreet commodo. Sed placerat magna id arcu hendrerit, ac porttitor sapien porttitor. Phasellus mauris elit, condimentum ac iaculis ut, iaculis a urna. Morbi posuere sit amet diam ut auctor. Morbi sodales odio eleifend mauris venenatis ultricies. Aenean efficitur libero nec nulla fringilla, sit amet dignissim velit consectetur. Suspendisse consectetur porta arcu, sagittis dictum quam.
 
 Nullam convallis tortor nisl, eget laoreet orci cursus at. Curabitur at luctus libero. Nunc nec orci et turpis tincidunt pretium. Curabitur nec dolor facilisis, molestie quam vitae, hendrerit elit. In a viverra ex. In hac habitasse platea dictumst. Curabitur luctus sapien sit amet pharetra varius. Fusce placerat lacus vel purus hendrerit, vel consectetur erat ornare. In eu nisi nunc.
 
@@ -25,8 +33,65 @@ Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac tu
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData.dark(),
-      home: const TeleprompterWidget(
+      home: const HomeScreen(
         text: text,
+      ),
+    );
+  }
+}
+
+class HomeScreen extends StatefulWidget {
+  final String text;
+  const HomeScreen({
+    required this.text,
+    super.key,
+  });
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  TextEditingController textEditingController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    textEditingController.text = widget.text;
+    textEditingController.selection =
+        const TextSelection(baseOffset: 0, extentOffset: 0);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text('Teleprompter')),
+      body: Container(
+        margin: EdgeInsets.all(10),
+        child: TextField(
+          controller: textEditingController,
+          decoration: InputDecoration(
+            contentPadding: const EdgeInsets.all(10),
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
+            hintText: "Text for teleprompter",
+          ),
+          scrollPadding: EdgeInsets.all(20.0),
+          keyboardType: TextInputType.multiline,
+          maxLines: 99999,
+          autofocus: true,
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.play_arrow),
+        onPressed: () => Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => TeleprompterWidget(
+              text: textEditingController.text,
+            ),
+          ),
+        ),
       ),
     );
   }

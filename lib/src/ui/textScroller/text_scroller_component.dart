@@ -12,10 +12,18 @@ class TextScrollerComponent extends StatefulWidget {
   final String text;
   final String savedToGallery;
 
+  final Widget stopRecordingButton;
+  final Widget startRecordingButton;
+
+  final ShapeBorder? floatingButtonShape;
+
   const TextScrollerComponent({
     required this.title,
     required this.text,
     required this.savedToGallery,
+    required this.startRecordingButton,
+    required this.stopRecordingButton,
+    this.floatingButtonShape,
     super.key,
   });
 
@@ -91,15 +99,14 @@ class _TextScrollerComponentState extends State<TextScrollerComponent>
                       );
                     } else {}
                   },
-                  icon: const Icon(Icons.stop, color: Colors.red),
+                  icon: widget.stopRecordingButton,
                 )
               : IconButton(
                   onPressed: () {
                     teleprompterState.startRecording(teleprompterState);
                     teleprompterState.refresh();
                   },
-                  icon: const Icon(Icons.fiber_manual_record_sharp,
-                      color: Colors.red),
+                  icon: widget.startRecordingButton,
                 )
         ],
       ),
@@ -130,8 +137,7 @@ class _TextScrollerComponentState extends State<TextScrollerComponent>
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(10))),
+        shape: widget.floatingButtonShape,
         onPressed: teleprompterState.toggleStartStop,
         child: teleprompterState.isScrolling()
             ? const Icon(Icons.pause)
