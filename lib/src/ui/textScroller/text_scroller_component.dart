@@ -6,6 +6,7 @@ import 'package:teleprompter/src/shared/app_logger.dart';
 import 'package:teleprompter/src/shared/my_snack_bar.dart';
 import 'package:teleprompter/src/ui/textScroller/text_scroller_options_component.dart';
 import 'package:teleprompter/src/ui/textScroller/text_scroller_oriented_component.dart';
+import 'package:teleprompter/src/ui/timer/recording_timer.dart';
 
 class TextScrollerComponent extends StatefulWidget {
   final String title;
@@ -73,17 +74,14 @@ class _TextScrollerComponentState extends State<TextScrollerComponent>
 
     return Scaffold(
       appBar: AppBar(
-        title: FittedBox(
-          child: Row(
-            children: [
-              Text(
-                widget.title,
-                overflow: TextOverflow.fade,
+        title: teleprompterState.isRecording()
+            ? RecordingTimer()
+            : FittedBox(
+                child: Text(
+                  widget.title,
+                  overflow: TextOverflow.fade,
+                ),
               ),
-              //,
-            ],
-          ),
-        ),
         actions: [
           teleprompterState.isRecording()
               ? IconButton(

@@ -5,6 +5,9 @@ Features:
 - Record video directly inside the app
 - Automatic save to gallery on stop recording
 
+Demo using the example of the package:
+![Teleprompter demo](https://github.com/ivofernandes/teleprompter/blob/master/doc/example.gif?raw=true)
+
 ## Getting started
 
 Add the dependency to your `pubspec.yaml`:
