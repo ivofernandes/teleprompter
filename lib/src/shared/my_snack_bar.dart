@@ -8,7 +8,7 @@ class MySnackBar {
     Duration duration = const Duration(seconds: 4),
   }) {
     showTopSnackBar(
-      context,
+      Overlay.of(context)!,
       Container(
         width: MediaQuery.of(context).size.width * 0.8,
         height: 100,

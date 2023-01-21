@@ -9,3 +9,6 @@ Added timer
 
 ## 0.0.4 28/10/2022
 Fixed main/master bullshit...
+
+## 0.0.5 21/1/2023
+Updated dependencies

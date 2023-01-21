@@ -13,7 +13,7 @@ Demo using the example of the package:
 Add the dependency to your `pubspec.yaml`:
 
 ```
-teleprompter: ^0.0.4
+teleprompter: ^0.0.5
 ```
 
 Or run the following command in the terminal in the root of your project: 

@@ -10,12 +10,13 @@ class BottomBorder extends StatelessWidget {
       : Container(
           height: 3,
           decoration: BoxDecoration(
+            borderRadius: const BorderRadius.all(Radius.circular(20)),
             gradient: LinearGradient(
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
               colors: [
-                Theme.of(context).textTheme.bodyText1!.color!.withOpacity(0.1),
-                Theme.of(context).cardColor.withOpacity(0.1),
+                Theme.of(context).textTheme.bodyText1!.color!.withOpacity(0.4),
+                Theme.of(context).cardColor.withOpacity(0.4),
               ],
             ),
           ),

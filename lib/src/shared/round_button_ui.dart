@@ -10,28 +10,40 @@ class RoundButtonUI extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Stack(
-        children: [
-          Container(
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                boxShadow: [
-                  BoxShadow(
-                      color: Theme.of(context).shadowColor.withOpacity(0.5),
-                      blurRadius: 5,
-                      spreadRadius: 2,
-                      offset: const Offset(0, 3))
-                ],
-              ),
-              width: 40,
-              height: 40),
-          ClipOval(
-            child: Container(
-              color: Theme.of(context).cardColor,
-              width: 40,
-              height: 40,
-              child: child,
-            ),
-          )
-        ],
-      );
+    children: [
+      Container(
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          gradient: RadialGradient(
+            colors: [
+              Theme.of(context).cardColor.withOpacity(0.75),
+              Theme.of(context).cardColor.withOpacity(1),
+            ],
+            radius: 1.0,
+            center: Alignment.center,
+          ),
+          boxShadow: [
+            BoxShadow(
+              color: Theme.of(context)
+                  .textTheme
+                  .bodyText1!
+                  .color!
+                  .withOpacity(0.4),
+              spreadRadius: 1,
+              offset: const Offset(0, 0),
+            )
+          ],
+        ),
+        width: 40,
+        height: 40,
+      ),
+      ClipOval(
+        child: SizedBox(
+          width: 40,
+          height: 40,
+          child: child,
+        ),
+      )
+    ],
+  );
 }

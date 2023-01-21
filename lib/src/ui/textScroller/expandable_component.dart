@@ -38,8 +38,12 @@ class _ExpandableComponentState extends State<ExpandableComponent> {
 
   @override
   Widget build(BuildContext context) {
-    final double width = MediaQuery.of(context).size.width;
-    final double height = MediaQuery.of(context).size.height;
+    final double screenWidth = MediaQuery.of(context).size.width;
+    final double screenHeight = MediaQuery.of(context).size.height;
+
+    final textHeight = _height! < screenHeight - widget.remainingSpace
+        ? _height
+        : screenHeight - widget.remainingSpace;
 
     return SizedBox(
       height: _maxHeight,
@@ -48,23 +52,24 @@ class _ExpandableComponentState extends State<ExpandableComponent> {
           Align(
             alignment: Alignment.topCenter,
             child: SizedBox(
-              height: _height! < height - widget.remainingSpace
-                  ? _height
-                  : height - widget.remainingSpace,
+              height: textHeight,
               child: widget.child,
             ),
           ),
-          Align(
-            alignment: Alignment.bottomCenter,
+          Positioned(
+            top: textHeight! - 40,
             child: SizedBox(
               height: _dividerHeight - 30.0,
-              width: width,
+              width: screenWidth,
               child: GestureDetector(
                 child: Container(
-                    color: Colors.orange.withOpacity(0),
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 20, horizontal: 120),
-                    child: const BottomBorder()),
+                  color: Colors.blue.withOpacity(0),
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 20,
+                    horizontal: 120,
+                  ),
+                  child: const BottomBorder(),
+                ),
                 onPanUpdate: (details) {
                   setState(() {
                     _height = _height! + details.delta.dy;
