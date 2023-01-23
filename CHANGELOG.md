@@ -12,3 +12,6 @@ Fixed main/master bullshit...
 
 ## 0.0.5 21/1/2023
 Updated dependencies
+
+## 0.0.6 23/1/2023
+Fixed code format
