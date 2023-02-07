@@ -13,7 +13,7 @@ Demo using the example of the package:
 Add the dependency to your `pubspec.yaml`:
 
 ```
-teleprompter: ^0.0.5
+teleprompter: ^0.0.6
 ```
 
 Or run the following command in the terminal in the root of your project: 
@@ -68,14 +68,18 @@ Add two rows to the `ios/Runner/Info.plist`:
 
 * one with the key `Privacy - Camera Usage Description` and a usage description.
 * and one with the key `Privacy - Microphone Usage Description` and a usage description.
+* add one for the videos/photos library
 
-If editing `Info.plist` as text, add:
+If editing `Info.plist` as text, that probably is quite easier, just add:
 
 ```xml
 <key>NSCameraUsageDescription</key>
-<string>your usage description here</string>
+<key>NSCameraUsageDescription</key>
+<string>Need camera to record to video image</string>
 <key>NSMicrophoneUsageDescription</key>
-<string>your usage description here</string>
+<string>Need microphone to record to video audio</string>
+<key>NSPhotoLibraryUsageDescription</key>
+<string>Need access to library to save the video</string>
 ```
 
 ### Android

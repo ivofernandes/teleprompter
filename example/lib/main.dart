@@ -42,6 +42,7 @@ Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac tu
 
 class HomeScreen extends StatefulWidget {
   final String text;
+
   const HomeScreen({
     required this.text,
     super.key,
@@ -65,9 +66,9 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Teleprompter')),
+      appBar: AppBar(title: const Text('Teleprompter')),
       body: Container(
-        margin: EdgeInsets.all(10),
+        margin: const EdgeInsets.all(10),
         child: TextField(
           controller: textEditingController,
           decoration: InputDecoration(
@@ -77,14 +78,14 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             hintText: "Text for teleprompter",
           ),
-          scrollPadding: EdgeInsets.all(20.0),
+          scrollPadding: const EdgeInsets.all(20.0),
           keyboardType: TextInputType.multiline,
           maxLines: 99999,
           autofocus: true,
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.play_arrow),
+        child: const Icon(Icons.play_arrow),
         onPressed: () => Navigator.of(context).push(
           MaterialPageRoute(
             builder: (context) => TeleprompterWidget(

@@ -6,11 +6,13 @@ import 'package:teleprompter/src/data/state/teleprompter_state.dart';
 import 'package:teleprompter/src/ui/camera/teleprompter_camera.dart';
 import 'package:teleprompter/src/ui/textScroller/text_scroller_component.dart';
 
+/// Widget that shows the teleprompter
 class TeleprompterWidget extends StatefulWidget {
   const TeleprompterWidget({
     required this.text,
     this.title = 'Script name',
     this.savedToGallery = 'Video recorded saved to your gallery',
+    this.errorSavingToGallery = 'Error saving video to your gallery',
     this.defaultTextColor = Colors.greenAccent,
     this.startRecordingButton =
         const Icon(Icons.fiber_manual_record_sharp, color: Colors.red),
@@ -27,6 +29,9 @@ class TeleprompterWidget extends StatefulWidget {
 
   /// Message to show when the video is saved to the gallery
   final String savedToGallery;
+
+  /// Message to show when the video is not saved to the gallery
+  final String errorSavingToGallery;
 
   /// Color of the teleprompter text at the start
   final Color defaultTextColor;
@@ -77,6 +82,7 @@ class _TeleprompterWidgetState extends State<TeleprompterWidget> {
                     title: widget.title,
                     text: widget.text,
                     savedToGallery: widget.savedToGallery,
+                    errorSavingToGallery: widget.errorSavingToGallery,
                     stopRecordingButton: widget.stopRecordingButton,
                     startRecordingButton: widget.startRecordingButton,
                     floatingButtonShape: widget.floatingButtonShape,

@@ -12,6 +12,7 @@ class TextScrollerComponent extends StatefulWidget {
   final String title;
   final String text;
   final String savedToGallery;
+  final String errorSavingToGallery;
 
   final Widget stopRecordingButton;
   final Widget startRecordingButton;
@@ -22,6 +23,7 @@ class TextScrollerComponent extends StatefulWidget {
     required this.title,
     required this.text,
     required this.savedToGallery,
+    required this.errorSavingToGallery,
     required this.startRecordingButton,
     required this.stopRecordingButton,
     this.floatingButtonShape,
@@ -90,12 +92,17 @@ class _TextScrollerComponentState extends State<TextScrollerComponent>
                         await teleprompterState.stopRecording();
                     teleprompterState.refresh();
 
-                    if (success) {
+                    if (success && mounted) {
                       MySnackBar.show(
                         context: context,
                         text: widget.savedToGallery,
                       );
-                    } else {}
+                    } else if (mounted) {
+                      MySnackBar.showError(
+                        context: context,
+                        text: widget.errorSavingToGallery,
+                      );
+                    }
                   },
                   icon: widget.stopRecordingButton,
                 )

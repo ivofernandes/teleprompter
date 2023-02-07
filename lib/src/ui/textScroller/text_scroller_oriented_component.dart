@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:teleprompter/src/data/state/teleprompter_state.dart';
 import 'package:teleprompter/src/ui/textScroller/expandable_component.dart';
 
+/// Component that shows the text to scroll
 class TextScrollerOrientedComponent extends StatelessWidget {
   final ScrollController _scrollController;
   final NativeDeviceOrientation orientation;
@@ -58,7 +59,7 @@ class TextScrollerOrientedComponent extends StatelessWidget {
                 textAlign: orientation == NativeDeviceOrientation.landscapeRight
                     ? TextAlign.right
                     : TextAlign.left,
-                style: Theme.of(context).textTheme.headline6!.copyWith(
+                style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                       color: teleprompterState.getTextColor(),
                       fontSize: teleprompterState.getTextSize(),
                     ),

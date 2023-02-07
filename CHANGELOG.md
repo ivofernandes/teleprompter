@@ -15,3 +15,6 @@ Updated dependencies
 
 ## 0.0.6 23/1/2023
 Fixed code format
+
+## 0.0.7 7/2/2023
+Adapt to new layout

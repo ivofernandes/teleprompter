@@ -51,5 +51,7 @@
     <string>Need camera to record to video image</string>
     <key>NSMicrophoneUsageDescription</key>
     <string>Need microphone to record to video audio</string>
+    <key>NSPhotoLibraryUsageDescription</key>
+	<string>Need access to library to save the video</string>
 </dict>
 </plist>
