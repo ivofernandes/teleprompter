@@ -18,6 +18,7 @@ class TeleprompterWidget extends StatefulWidget {
         const Icon(Icons.fiber_manual_record_sharp, color: Colors.red),
     this.stopRecordingButton = const Icon(Icons.stop, color: Colors.red),
     this.floatingButtonShape,
+    this.defaultOpacity = 0.7,
     super.key,
   });
 
@@ -45,6 +46,9 @@ class TeleprompterWidget extends StatefulWidget {
   /// Shape of the floating button
   final ShapeBorder? floatingButtonShape;
 
+  /// Default opacity of the teleprompter text
+  final double defaultOpacity;
+
   @override
   _TeleprompterWidgetState createState() => _TeleprompterWidgetState();
 }
@@ -55,6 +59,8 @@ class _TeleprompterWidgetState extends State<TeleprompterWidget> {
   @override
   void initState() {
     super.initState();
+
+    opacity = widget.defaultOpacity;
   }
 
   @override

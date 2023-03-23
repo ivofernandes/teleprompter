@@ -6,9 +6,14 @@ import 'package:provider/provider.dart';
 import 'package:teleprompter/src/data/state/teleprompter_state.dart';
 import 'package:teleprompter/src/ui/camera/camera_actions.dart';
 
+/// Widget that presents the camera preview so the user can see what the camera is recording
 class TeleprompterCamera extends StatefulWidget {
   final CameraController controller;
-  const TeleprompterCamera(this.controller, {super.key});
+
+  const TeleprompterCamera(
+    this.controller, {
+    super.key,
+  });
 
   @override
   _TeleprompterCameraState createState() => _TeleprompterCameraState();
@@ -16,11 +21,16 @@ class TeleprompterCamera extends StatefulWidget {
 
 class _TeleprompterCameraState extends State<TeleprompterCamera>
     with CameraActions, WidgetsBindingObserver, TickerProviderStateMixin {
-  XFile? imageFile;
-  XFile? videoFile;
+  // An optional VoidCallback for handling video player events.
   VoidCallback? videoPlayerListener;
+
+  // A boolean flag to enable or disable audio recording during video capture
   bool enableAudio = true;
+
+  // instance to handle exposure mode control animations.
   late AnimationController _exposureModeControlRowAnimationController;
+
+  // Scale fields
   double _minAvailableZoom = 1;
   double _maxAvailableZoom = 1;
   double _currentScale = 1;
@@ -28,7 +38,11 @@ class _TeleprompterCameraState extends State<TeleprompterCamera>
 
   // Counting pointers (number of user fingers on screen)
   int _pointers = 0;
+
+  // Provider of the state
   TeleprompterState? teleprompterState;
+
+  // A boolean flag to track if the camera has been disposed
   bool cameraDisposed = false;
 
   @override
@@ -167,7 +181,7 @@ class _TeleprompterCameraState extends State<TeleprompterCamera>
   }
 
   Future<void> refreshCamera() async {
-    //request new camera selection to teleprompter state
+    // request new camera selection to teleprompter state
     await teleprompterState!.prepareCamera();
     teleprompterState!.refresh();
   }

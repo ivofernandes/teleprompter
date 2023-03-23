@@ -18,3 +18,6 @@ Fixed code format
 
 ## 0.0.7 7/2/2023
 Adapt to new layout
+
+# 0.0.8 22/3/2023
+Fixed formatting

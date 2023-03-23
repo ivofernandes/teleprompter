@@ -17,24 +17,22 @@ class TeleprompterColorPickerComponent extends StatelessWidget {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return AlertDialog(
-      title: Align(
-        alignment: Alignment.centerRight,
-        child: RoundButtonUI(
-          child: IconButton(
-            onPressed: () => Navigator.of(context).pop(),
-            icon: const Icon(Icons.clear),
+  Widget build(BuildContext context) => AlertDialog(
+        title: Align(
+          alignment: Alignment.centerRight,
+          child: RoundButtonUI(
+            child: IconButton(
+              onPressed: () => Navigator.of(context).pop(),
+              icon: const Icon(Icons.clear),
+            ),
           ),
         ),
-      ),
-      content: SingleChildScrollView(
-        child: ColorPicker(
-          pickerColor: teleprompterState.getTextColor(),
-          onColorChanged: changeColor,
-          pickerAreaHeightPercent: 0.8,
+        content: SingleChildScrollView(
+          child: ColorPicker(
+            pickerColor: teleprompterState.getTextColor(),
+            onColorChanged: changeColor,
+            pickerAreaHeightPercent: 0.8,
+          ),
         ),
-      ),
-    );
-  }
+      );
 }

@@ -25,7 +25,9 @@ class ExpandableComponent extends StatefulWidget {
 
 class _ExpandableComponentState extends State<ExpandableComponent> {
   double? _height;
-  late double _maxHeight, _dividerHeight, _dividerSpace;
+  late double _maxHeight;
+  late double _dividerHeight;
+  late double _dividerSpace;
 
   @override
   void initState() {

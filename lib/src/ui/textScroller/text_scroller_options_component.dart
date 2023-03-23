@@ -6,10 +6,13 @@ import 'package:teleprompter/src/ui/textScroller/options/text_option_navigator_i
 
 class TextScrollerOptionsComponent extends StatelessWidget {
   final int index;
-  final Function updateIndex;
+  final UpdateIndexCallback? updateIndex;
 
-  const TextScrollerOptionsComponent(
-      {required this.index, required this.updateIndex, super.key});
+  const TextScrollerOptionsComponent({
+    required this.index,
+    required this.updateIndex,
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 
+typedef UpdateIndexCallback = void Function(int index);
+
 class TextOptionNavigatorIconComponent extends StatelessWidget {
   final int index;
-  final Function? updateIndex;
+  final UpdateIndexCallback? updateIndex;
   final Color? color;
 
   const TextOptionNavigatorIconComponent({
@@ -12,26 +14,33 @@ class TextOptionNavigatorIconComponent extends StatelessWidget {
     super.key,
   });
 
-  @override
-  Widget build(BuildContext context) {
-    IconData icon = Icons.opacity;
-
+  IconData _getIcon() {
     switch (index) {
       case 1:
-        icon = Icons.speed;
-        break;
+        return Icons.speed;
       case 2:
-        icon = Icons.text_format;
-        break;
+        return Icons.text_format;
+      default:
+        return Icons.opacity;
     }
+  }
+
+  @override
+  Widget build(BuildContext context) {
     if (index >= 0 && index < 3) {
+      final IconData icon = _getIcon();
       return SizedBox(
         width: 50,
         child: Container(
-            child: updateIndex != null
-                ? IconButton(
-                    onPressed: () => updateIndex!(index), icon: Icon(icon))
-                : Icon(icon, color: color)),
+          child: updateIndex != null
+              ? IconButton(
+                  onPressed: () => updateIndex!(index),
+                  icon: Icon(
+                    icon,
+                  ),
+                )
+              : Icon(icon, color: color),
+        ),
       );
     } else {
       return const SizedBox(width: 50);

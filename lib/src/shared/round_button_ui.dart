@@ -23,14 +23,11 @@ class RoundButtonUI extends StatelessWidget {
                 Theme.of(context).cardColor.withOpacity(0.75),
                 Theme.of(context).cardColor.withOpacity(1),
               ],
-              radius: 1.0,
-              center: Alignment.center,
             ),
             boxShadow: [
               BoxShadow(
                 color: foregroundColor.withOpacity(0.4),
                 spreadRadius: 1,
-                offset: const Offset(0, 0),
               )
             ],
           ),

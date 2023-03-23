@@ -8,15 +8,28 @@ import 'package:teleprompter/src/ui/textScroller/text_scroller_options_component
 import 'package:teleprompter/src/ui/textScroller/text_scroller_oriented_component.dart';
 import 'package:teleprompter/src/ui/timer/recording_timer.dart';
 
+// This class represents the TextScrollerComponent, a StatefulWidget that provides
+// functionality for displaying text and controlling its scrolling behavior.
 class TextScrollerComponent extends StatefulWidget {
+  // The title of the widget, typically used as the app bar title.
   final String title;
+
+  // The text content to be displayed and scrolled.
   final String text;
+
+  // A message to be displayed when the recording is successfully saved to the gallery.
   final String savedToGallery;
+
+  // An error message to be displayed when there is an issue saving the recording to the gallery.
   final String errorSavingToGallery;
 
-  final Widget stopRecordingButton;
+  // Widget to be used as start recording
   final Widget startRecordingButton;
 
+  // Widget to be used as stop recording
+  final Widget stopRecordingButton;
+
+  // An optional shape border for the floating action button.
   final ShapeBorder? floatingButtonShape;
 
   const TextScrollerComponent({
@@ -77,7 +90,7 @@ class _TextScrollerComponentState extends State<TextScrollerComponent>
     return Scaffold(
       appBar: AppBar(
         title: teleprompterState.isRecording()
-            ? RecordingTimer()
+            ? const RecordingTimer()
             : FittedBox(
                 child: Text(
                   widget.title,

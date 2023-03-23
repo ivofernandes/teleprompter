@@ -65,31 +65,34 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('Teleprompter')),
-      body: Container(
-        margin: const EdgeInsets.all(10),
-        child: TextField(
-          controller: textEditingController,
-          decoration: InputDecoration(
-            contentPadding: const EdgeInsets.all(10),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10),
+    return GestureDetector(
+      onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+      child: Scaffold(
+        appBar: AppBar(title: const Text('Teleprompter')),
+        body: Container(
+          margin: const EdgeInsets.all(10),
+          child: TextField(
+            controller: textEditingController,
+            decoration: InputDecoration(
+              contentPadding: const EdgeInsets.all(10),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
+              hintText: "Text for teleprompter",
             ),
-            hintText: "Text for teleprompter",
+            scrollPadding: const EdgeInsets.all(20.0),
+            keyboardType: TextInputType.multiline,
+            maxLines: 99999,
+            autofocus: true,
           ),
-          scrollPadding: const EdgeInsets.all(20.0),
-          keyboardType: TextInputType.multiline,
-          maxLines: 99999,
-          autofocus: true,
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        child: const Icon(Icons.play_arrow),
-        onPressed: () => Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (context) => TeleprompterWidget(
-              text: textEditingController.text,
+        floatingActionButton: FloatingActionButton(
+          child: const Icon(Icons.play_arrow),
+          onPressed: () => Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => TeleprompterWidget(
+                text: textEditingController.text,
+              ),
             ),
           ),
         ),

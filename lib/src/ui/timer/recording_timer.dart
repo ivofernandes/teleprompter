@@ -18,33 +18,31 @@ class _RecordingTimerState extends State<RecordingTimer> {
   }
 
   @override
-  void dispose() async {
+  Future<void> dispose() async {
     super.dispose();
     await _stopWatchTimer.dispose(); // Need to call dispose function.
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: StreamBuilder<int>(
-        stream: _stopWatchTimer.rawTime,
-        initialData: 0,
-        builder: (context, snap) {
-          final value = snap.data!;
-          final displayTime =
-              StopWatchTimer.getDisplayTime(value, milliSecond: false);
-          return Container(
-            padding: const EdgeInsets.all(10),
-            child: Text(
-              displayTime,
-              style: const TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
+  Widget build(BuildContext context) => Center(
+        child: StreamBuilder<int>(
+          stream: _stopWatchTimer.rawTime,
+          initialData: 0,
+          builder: (context, snap) {
+            final value = snap.data!;
+            final displayTime =
+                StopWatchTimer.getDisplayTime(value, milliSecond: false);
+            return Container(
+              padding: const EdgeInsets.all(10),
+              child: Text(
+                displayTime,
+                style: const TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
-            ),
-          );
-        },
-      ),
-    );
-  }
+            );
+          },
+        ),
+      );
 }
