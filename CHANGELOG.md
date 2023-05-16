@@ -21,3 +21,6 @@ Adapt to new layout
 
 # 0.0.8 22/3/2023
 Fixed formatting
+
+# 0.0.9 17/5/2023
+Updated dependencies
