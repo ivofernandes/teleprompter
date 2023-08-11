@@ -24,3 +24,6 @@ Fixed formatting
 
 # 0.0.9 17/5/2023
 Updated dependencies
+
+# 0.0.10 11/8/2023
+Updated dependencies

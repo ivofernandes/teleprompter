@@ -68,7 +68,9 @@ class _HomeScreenState extends State<HomeScreen> {
     return GestureDetector(
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
       child: Scaffold(
-        appBar: AppBar(title: const Text('Teleprompter')),
+        appBar: AppBar(
+          title: const Text('Teleprompter'),
+        ),
         body: Container(
           margin: const EdgeInsets.all(10),
           child: TextField(

@@ -13,7 +13,9 @@ I developed this rhyming dictionary, but at some point the complexity of this te
 Then after being decoupled decided to publish as content creation is probably an important part of many apps.
 
 If you can test by just installing this app, that in the editor mode has a teleprompter feature:
+
 https://play.google.com/store/apps/details?id=com.rhymit.rhymit_application
+
 https://apps.apple.com/pt/app/rhymit/id1251123570
 
 ## Getting started
@@ -21,7 +23,7 @@ https://apps.apple.com/pt/app/rhymit/id1251123570
 Add the dependency to your `pubspec.yaml`:
 
 ```
-teleprompter: ^0.0.7
+teleprompter: ^0.0.10
 ```
 
 Or run the following command in the terminal in the root of your project: 
