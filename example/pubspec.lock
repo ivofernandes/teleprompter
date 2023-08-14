@@ -356,10 +356,10 @@ packages:
     dependency: transitive
     description:
       name: rxdart
-      sha256: "5d22055fd443806c03ef24a02000637cf51eae49c2a0168d38a43fc166b0209c"
+      sha256: "0c7c0cedd93788d996e33041ffecda924cc54389199cde4e6a34b440f50044cb"
       url: "https://pub.dev"
     source: hosted
-    version: "0.27.5"
+    version: "0.27.7"
   shared_preferences:
     dependency: transitive
     description:
@@ -441,10 +441,10 @@ packages:
     dependency: transitive
     description:
       name: stop_watch_timer
-      sha256: eb690e4f6d983ba12ddfbf51a5d489fdba8b64982b9651cb538650888cec2886
+      sha256: "3fe040c5bf04004f6d21a454a859e90b0d3e2323d24d2d9e80d5d9df9ff614cc"
       url: "https://pub.dev"
     source: hosted
-    version: "2.0.0"
+    version: "3.0.1"
   stream_channel:
     dependency: transitive
     description:
