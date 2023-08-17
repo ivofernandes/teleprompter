@@ -103,6 +103,14 @@ minSdkVersion 21
 
 If you are not sure where to find that file 'minSdkVersion' on android studio and update the build.gradle to support only from version 21
 
+
+## More info
+
+This package also exposes a widget that can be used to display a stopwatch. That can be included anywhere in your project just by adding StopwatchWidget():
+```dart
+StopwatchWidget()
+```
+
 ## Contributing
 If you want to contribute to this project, you are more than welcome to do so.
 You can create an issue, or even better, create a pull request.

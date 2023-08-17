@@ -6,30 +6,30 @@ import 'package:teleprompter/src/shared/app_logger.dart';
 import 'package:teleprompter/src/shared/my_snack_bar.dart';
 import 'package:teleprompter/src/ui/textScroller/text_scroller_options_component.dart';
 import 'package:teleprompter/src/ui/textScroller/text_scroller_oriented_component.dart';
-import 'package:teleprompter/src/ui/timer/recording_timer.dart';
+import 'package:teleprompter/src/ui/timer/stopwatch_widget.dart';
 
-// This class represents the TextScrollerComponent, a StatefulWidget that provides
-// functionality for displaying text and controlling its scrolling behavior.
+/// This class represents the TextScrollerComponent, a StatefulWidget that provides
+/// functionality for displaying text and controlling its scrolling behavior.
 class TextScrollerComponent extends StatefulWidget {
-  // The title of the widget, typically used as the app bar title.
+  /// The title of the widget, typically used as the app bar title.
   final String title;
 
-  // The text content to be displayed and scrolled.
+  /// The text content to be displayed and scrolled.
   final String text;
 
-  // A message to be displayed when the recording is successfully saved to the gallery.
+  /// A message to be displayed when the recording is successfully saved to the gallery.
   final String savedToGallery;
 
-  // An error message to be displayed when there is an issue saving the recording to the gallery.
+  /// An error message to be displayed when there is an issue saving the recording to the gallery.
   final String errorSavingToGallery;
 
-  // Widget to be used as start recording
+  /// Widget to be used as start recording
   final Widget startRecordingButton;
 
-  // Widget to be used as stop recording
+  /// Widget to be used as stop recording
   final Widget stopRecordingButton;
 
-  // An optional shape border for the floating action button.
+  /// An optional shape border for the floating action button.
   final ShapeBorder? floatingButtonShape;
 
   const TextScrollerComponent({
@@ -90,7 +90,7 @@ class _TextScrollerComponentState extends State<TextScrollerComponent>
     return Scaffold(
       appBar: AppBar(
         title: teleprompterState.isRecording()
-            ? const RecordingTimer()
+            ? const StopwatchWidget()
             : FittedBox(
                 child: Text(
                   widget.title,
