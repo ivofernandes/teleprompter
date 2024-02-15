@@ -33,3 +33,6 @@ Updated dependencies
 
 # 0.0.12 17/8/2023
 Expose StopwatcherWidget
+
+# 0.1.0 14/2/2024
+Updated dependencies
