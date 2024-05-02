@@ -32,7 +32,12 @@ Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac tu
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
-      theme: ThemeData.dark(),
+      theme: ThemeData.dark().copyWith(
+        textTheme: ThemeData.dark().textTheme.apply(
+              bodyColor: Colors.white,
+              displayColor: Colors.white,
+            ),
+      ),
       home: const HomeScreen(
         text: text,
       ),

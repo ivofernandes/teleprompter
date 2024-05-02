@@ -1,5 +1,5 @@
 cd ..
-echo "> # Main App # lib:"
+echo "> # lib:"
 find ./lib -name "*.dart" -type f|xargs wc -l | grep total
 echo "> # Example:"
 find ./example/lib -name "*.dart" -type f|xargs wc -l | grep main
