@@ -16,7 +16,7 @@ dependencies:
   provider: ^6.1.2
   flutter_colorpicker: ^1.0.3
   gallery_saver:
-    git: https://github.com/CarnegieTechnologies/gallery_saver.git
+    git: https://github.com/danieljiwonkang98/gallery_saver.git
   logger: ^2.0.2+1
   top_snackbar_flutter: ^3.1.0
   native_device_orientation: ^2.0.3
