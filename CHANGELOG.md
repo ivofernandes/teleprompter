@@ -37,5 +37,5 @@ Expose StopwatcherWidget
 # 0.1.0 14/2/2024
 Updated dependencies
 
-# 0.1.1 2/5/2024
+# 0.1.1 1/6/2024
 Updated dependencies

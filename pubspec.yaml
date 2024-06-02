@@ -11,16 +11,16 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  camera: ^0.10.5+9
+  camera: ^0.11.0+1
   shared_preferences: ^2.2.3
   provider: ^6.1.2
-  flutter_colorpicker: ^1.0.3
-  gallery_saver:
-    git: https://github.com/danieljiwonkang98/gallery_saver.git
+  flutter_colorpicker: ^1.1.0
+  gal: ^2.3.0
   logger: ^2.0.2+1
   top_snackbar_flutter: ^3.1.0
   native_device_orientation: ^2.0.3
   stop_watch_timer: ^3.1.1
+  path: ^1.8.0
 
 dev_dependencies:
   flutter_test:

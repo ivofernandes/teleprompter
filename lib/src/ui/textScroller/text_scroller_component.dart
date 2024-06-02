@@ -66,6 +66,11 @@ class _TextScrollerComponentState extends State<TextScrollerComponent>
       Future.delayed(
         const Duration(milliseconds: 500),
         () {
+          // Check if scroller stills attached to the widget
+          if (!scrollController.hasClients) {
+            return;
+          }
+
           final double maxExtent = scrollController.position.maxScrollExtent;
           final double distanceDifference = maxExtent - scrollController.offset;
           final double durationDouble =

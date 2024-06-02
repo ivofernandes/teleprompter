@@ -1,5 +1,7 @@
+import 'dart:io';
 import 'package:camera/camera.dart';
-import 'package:gallery_saver/gallery_saver.dart';
+import 'package:gal/gal.dart';
+import 'package:path/path.dart' as path;
 import 'package:teleprompter/src/data/services/cameraService/camera_dectector.dart';
 import 'package:teleprompter/src/data/state/teleprompter_state.dart';
 import 'package:teleprompter/src/shared/app_logger.dart';
@@ -45,12 +47,26 @@ class CameraService extends CameraDetector {
 
     try {
       final XFile file = await cameraController!.stopVideoRecording();
-      final bool? success = await GallerySaver.saveVideo(file.path);
-      if (success != null && success) {
-        return true;
+
+      final hasAccess = await Gal.hasAccess();
+      if (!hasAccess) {
+        await Gal.requestAccess();
       }
+
+      // Rename the file with a proper extension
+      final String newPath = path.setExtension(file.path, '.mp4');
+      final File newFile = await File(file.path).rename(newPath);
+
+      // Save the video using the GAL package without MIME type
+      await Gal.putVideo(newFile.path);
+
+      // Delete the old file
+      await File(newFile.path).delete();
+      return true;
     } on CameraException catch (e) {
       AppLogger().error(e);
+    } catch (e) {
+      AppLogger().error('Unexpected error: $e');
     }
 
     return false;
