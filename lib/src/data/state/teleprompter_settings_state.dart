@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
@@ -75,11 +76,14 @@ mixin TeleprompterSettingsState {
 
   Color getTextColor() => _textColor;
 
-  Future<void> setTextColor(Color color) async {
+  set textColor(Color color) {
     _textColor = color;
+    unawaited(_saveTextColor(color));
+  }
 
+  Future<void> _saveTextColor(Color color) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setInt(settingsTextColor, color.value);
+    await prefs.setInt(settingsTextColor, color.toARGB32());
   }
 
   num getValueForIndex(int index) {

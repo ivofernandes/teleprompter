@@ -39,3 +39,8 @@ Updated dependencies
 
 # 0.1.1 1/6/2024
 Updated dependencies
+
+## 0.1.2
+
+- Update dependencies to their current stable releases.
+- Replace deprecated Flutter color APIs.

@@ -12,7 +12,7 @@ class TeleprompterColorPickerComponent extends StatelessWidget {
   });
 
   void changeColor(Color color) {
-    teleprompterState.setTextColor(color);
+    teleprompterState.textColor = color;
     teleprompterState.refresh();
   }
 

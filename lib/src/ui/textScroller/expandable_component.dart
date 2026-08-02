@@ -65,7 +65,7 @@ class _ExpandableComponentState extends State<ExpandableComponent> {
               width: screenWidth,
               child: GestureDetector(
                 child: Container(
-                  color: Colors.blue.withOpacity(0),
+                  color: Colors.transparent,
                   padding: const EdgeInsets.symmetric(
                     vertical: 20,
                     horizontal: 120,

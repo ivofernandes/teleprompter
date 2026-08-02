@@ -71,11 +71,11 @@ class TeleprompterState
   int getOptionIndex() => _optionIndex;
 
   // Updates the current option index
-  void updateOptionIndex(int index) => _optionIndex = index;
+  set optionIndex(int index) => _optionIndex = index;
 
   // Getter for the current scroll position
   double getScrollPosition() => _scrollPosition;
 
   // Sets the current scroll position
-  void setScrollPosition(double offset) => _scrollPosition = offset;
+  set scrollPosition(double offset) => _scrollPosition = offset;
 }

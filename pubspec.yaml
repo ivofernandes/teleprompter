@@ -1,31 +1,31 @@
 name: teleprompter
 description: Flutter package to create a teleprompter from a text, record and save to gallery feature
-version: 0.1.1
+version: 0.1.2
 homepage: https://incaview.com
 repository: https://github.com/ivofernandes/teleprompter
 
 environment:
-  sdk: '>=2.18.2 <4.0.0'
-  flutter: ">=1.17.0"
+  sdk: '>=3.9.0 <4.0.0'
+  flutter: ">=3.35.0"
 
 dependencies:
   flutter:
     sdk: flutter
-  camera: ^0.11.0+1
-  shared_preferences: ^2.2.3
-  provider: ^6.1.2
+  camera: ^0.12.0+2
+  shared_preferences: ^2.5.5
+  provider: ^6.1.5+1
   flutter_colorpicker: ^1.1.0
-  gal: ^2.3.0
-  logger: ^2.0.2+1
-  top_snackbar_flutter: ^3.1.0
-  native_device_orientation: ^2.0.3
-  stop_watch_timer: ^3.1.1
-  path: ^1.8.0
+  gal: ^2.3.3
+  logger: ^2.7.0
+  top_snackbar_flutter: ^3.3.0
+  native_device_orientation: ^2.1.1
+  stop_watch_timer: ^3.2.2
+  path: ^1.9.1
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^2.0.1
+  flutter_lints: ^6.0.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

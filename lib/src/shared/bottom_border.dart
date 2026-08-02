@@ -16,8 +16,8 @@ class BottomBorder extends StatelessWidget {
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
           colors: [
-            foregroundColor.withOpacity(0.4),
-            Theme.of(context).cardColor.withOpacity(0.4),
+            foregroundColor.withValues(alpha: 0.4),
+            Theme.of(context).cardColor.withValues(alpha: 0.4),
           ],
         ),
       ),

@@ -20,13 +20,13 @@ class RoundButtonUI extends StatelessWidget {
             shape: BoxShape.circle,
             gradient: RadialGradient(
               colors: [
-                Theme.of(context).cardColor.withOpacity(0.75),
-                Theme.of(context).cardColor.withOpacity(1),
+                Theme.of(context).cardColor.withValues(alpha: 0.75),
+                Theme.of(context).cardColor,
               ],
             ),
             boxShadow: [
               BoxShadow(
-                color: foregroundColor.withOpacity(0.4),
+                color: foregroundColor.withValues(alpha: 0.4),
                 spreadRadius: 1,
               )
             ],

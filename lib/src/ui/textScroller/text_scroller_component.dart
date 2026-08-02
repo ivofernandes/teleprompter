@@ -57,7 +57,7 @@ class _TextScrollerComponentState extends State<TextScrollerComponent>
     final ScrollController scrollController = ScrollController(
         initialScrollOffset: teleprompterState.getScrollPosition());
     scrollController.addListener(() {
-      teleprompterState.setScrollPosition(scrollController.offset);
+      teleprompterState.scrollPosition = scrollController.offset;
     });
     AppLogger()
         .debug('scroll controller clients: ${scrollController.hasClients}');
@@ -154,7 +154,7 @@ class _TextScrollerComponentState extends State<TextScrollerComponent>
           TextScrollerOptionsComponent(
               index: teleprompterState.getOptionIndex(),
               updateIndex: (int index) {
-                teleprompterState.updateOptionIndex(index);
+                teleprompterState.optionIndex = index;
                 teleprompterState.refresh();
               })
         ],
