@@ -42,37 +42,38 @@ class TextOptionModifyComponent extends StatelessWidget {
   // This method builds the UI elements and returns a Row widget.
   @override
   Widget build(BuildContext context) => Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          // A button to decrease the option's value.
-          RoundButtonUI(
-            child: IconButton(
-                onPressed: () => value > minValue ? decrease() : null,
-                icon: const Icon(Icons.exposure_minus_1)),
-          ),
-          // Displays the current option value and the option's icon.
-          InkWell(
-            onTap: hit,
-            child: Padding(
-              padding: const EdgeInsets.all(8),
-              child: Column(
-                children: [
-                  Text(value.toStringAsPrecision(2)),
-                  TextOptionNavigatorIconComponent(
-                    index: index,
-                    color: Theme.of(context).colorScheme.secondary,
-                  )
-                ],
+    mainAxisAlignment: MainAxisAlignment.center,
+    children: [
+      // A button to decrease the option's value.
+      RoundButtonUI(
+        child: IconButton(
+          onPressed: () => value > minValue ? decrease() : null,
+          icon: const Icon(Icons.exposure_minus_1),
+        ),
+      ),
+      // Displays the current option value and the option's icon.
+      InkWell(
+        onTap: hit,
+        child: Padding(
+          padding: const EdgeInsets.all(8),
+          child: Column(
+            children: [
+              Text(value.toStringAsPrecision(2)),
+              TextOptionNavigatorIconComponent(
+                index: index,
+                color: Theme.of(context).colorScheme.secondary,
               ),
-            ),
+            ],
           ),
-          // A button to increase the option's value.
-          RoundButtonUI(
-            child: IconButton(
-              onPressed: () => value < maxValue ? increase() : null,
-              icon: const Icon(Icons.exposure_plus_1),
-            ),
-          )
-        ],
-      );
+        ),
+      ),
+      // A button to increase the option's value.
+      RoundButtonUI(
+        child: IconButton(
+          onPressed: () => value < maxValue ? increase() : null,
+          icon: const Icon(Icons.exposure_plus_1),
+        ),
+      ),
+    ],
+  );
 }

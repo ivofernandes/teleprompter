@@ -51,43 +51,49 @@ class _TextScrollerComponentState extends State<TextScrollerComponent>
     with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
-    final TeleprompterState teleprompterState =
-        Provider.of<TeleprompterState>(context, listen: false);
+    final TeleprompterState teleprompterState = Provider.of<TeleprompterState>(
+      context,
+      listen: false,
+    );
 
     final ScrollController scrollController = ScrollController(
-        initialScrollOffset: teleprompterState.getScrollPosition());
+      initialScrollOffset: teleprompterState.getScrollPosition(),
+    );
     scrollController.addListener(() {
       teleprompterState.scrollPosition = scrollController.offset;
     });
-    AppLogger()
-        .debug('scroll controller clients: ${scrollController.hasClients}');
+    AppLogger().debug(
+      'scroll controller clients: ${scrollController.hasClients}',
+    );
 
     if (teleprompterState.isScrolling()) {
-      Future.delayed(
-        const Duration(milliseconds: 500),
-        () {
-          // Check if scroller stills attached to the widget
-          if (!scrollController.hasClients) {
-            return;
-          }
+      Future.delayed(const Duration(milliseconds: 500), () {
+        // Check if scroller stills attached to the widget
+        if (!scrollController.hasClients) {
+          return;
+        }
 
-          final double maxExtent = scrollController.position.maxScrollExtent;
-          final double distanceDifference = maxExtent - scrollController.offset;
-          final double durationDouble =
-              distanceDifference / teleprompterState.getSpeedFactor();
+        final double maxExtent = scrollController.position.maxScrollExtent;
+        final double distanceDifference = maxExtent - scrollController.offset;
+        final double durationDouble =
+            distanceDifference / teleprompterState.getSpeedFactor();
 
-          final double max = scrollController.position.maxScrollExtent;
-          AppLogger().debug('animate to $max');
-          scrollController.animateTo(max,
-              duration: Duration(seconds: durationDouble.toInt()),
-              curve: Curves.linear);
-        },
-      );
+        final double max = scrollController.position.maxScrollExtent;
+        AppLogger().debug('animate to $max');
+        scrollController.animateTo(
+          max,
+          duration: Duration(seconds: durationDouble.toInt()),
+          curve: Curves.linear,
+        );
+      });
     } else {
       if (scrollController.hasClients) {
         Future.delayed(Duration.zero, () {
-          scrollController.animateTo(scrollController.offset,
-              duration: Duration.zero, curve: Curves.linear);
+          scrollController.animateTo(
+            scrollController.offset,
+            duration: Duration.zero,
+            curve: Curves.linear,
+          );
         });
       }
     }
@@ -96,18 +102,13 @@ class _TextScrollerComponentState extends State<TextScrollerComponent>
       appBar: AppBar(
         title: teleprompterState.isRecording()
             ? const StopwatchWidget()
-            : FittedBox(
-                child: Text(
-                  widget.title,
-                  overflow: TextOverflow.fade,
-                ),
-              ),
+            : FittedBox(child: Text(widget.title, overflow: TextOverflow.fade)),
         actions: [
           teleprompterState.isRecording()
               ? IconButton(
                   onPressed: () async {
-                    final bool success =
-                        await teleprompterState.stopRecording();
+                    final bool success = await teleprompterState
+                        .stopRecording();
                     teleprompterState.refresh();
 
                     if (success && mounted) {
@@ -130,7 +131,7 @@ class _TextScrollerComponentState extends State<TextScrollerComponent>
                     teleprompterState.refresh();
                   },
                   icon: widget.startRecordingButton,
-                )
+                ),
         ],
       ),
       body: Column(
@@ -139,8 +140,9 @@ class _TextScrollerComponentState extends State<TextScrollerComponent>
           Expanded(
             child: NativeDeviceOrientationReader(
               builder: (context) {
-                final orientation =
-                    NativeDeviceOrientationReader.orientation(context);
+                final orientation = NativeDeviceOrientationReader.orientation(
+                  context,
+                );
                 AppLogger().debug('Received new orientation: $orientation');
 
                 return TextScrollerOrientedComponent(
@@ -152,11 +154,12 @@ class _TextScrollerComponentState extends State<TextScrollerComponent>
             ),
           ),
           TextScrollerOptionsComponent(
-              index: teleprompterState.getOptionIndex(),
-              updateIndex: (int index) {
-                teleprompterState.optionIndex = index;
-                teleprompterState.refresh();
-              })
+            index: teleprompterState.getOptionIndex(),
+            updateIndex: (int index) {
+              teleprompterState.optionIndex = index;
+              teleprompterState.refresh();
+            },
+          ),
         ],
       ),
       floatingActionButton: FloatingActionButton(

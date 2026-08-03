@@ -5,7 +5,9 @@ import 'package:teleprompter/src/shared/my_snack_bar.dart';
 
 mixin CameraActions {
   Future<void> resumeVideoRecording(
-      CameraController? cameraController, BuildContext context) async {
+    CameraController? cameraController,
+    BuildContext context,
+  ) async {
     if (cameraController == null || !cameraController.value.isRecordingVideo) {
       return;
     }
@@ -21,7 +23,9 @@ mixin CameraActions {
   void showCameraException(CameraException e, BuildContext context) {
     logError(e.code, e.description);
     MySnackBar.show(
-        context: context, text: 'Error: ${e.code}\n${e.description}');
+      context: context,
+      text: 'Error: ${e.code}\n${e.description}',
+    );
   }
 
   void logError(String code, String? message) {

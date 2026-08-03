@@ -21,8 +21,10 @@ class TextScrollerOrientedComponent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final TeleprompterState teleprompterState =
-        Provider.of<TeleprompterState>(context, listen: false);
+    final TeleprompterState teleprompterState = Provider.of<TeleprompterState>(
+      context,
+      listen: false,
+    );
 
     final MediaQueryData mediaQueryData = MediaQuery.of(context);
 
@@ -60,9 +62,9 @@ class TextScrollerOrientedComponent extends StatelessWidget {
                     ? TextAlign.right
                     : TextAlign.left,
                 style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                      color: teleprompterState.getTextColor(),
-                      fontSize: teleprompterState.getTextSize(),
-                    ),
+                  color: teleprompterState.getTextColor(),
+                  fontSize: teleprompterState.getTextSize(),
+                ),
               ),
             ),
           ),

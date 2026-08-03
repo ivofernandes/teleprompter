@@ -15,9 +15,7 @@ class MySnackBar {
         width: MediaQuery.of(context).size.width * 0.8,
         height: 100,
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(20),
-        ),
+        decoration: BoxDecoration(borderRadius: BorderRadius.circular(20)),
         child: Center(
           child: Scaffold(
             body: Container(

@@ -60,11 +60,9 @@ class TeleprompterState
   // Displays a color picker dialog when the option is clicked
   void hit(int index, BuildContext context) {
     showDialog<Widget>(
-        context: context,
-        builder: (
-          BuildContext context,
-        ) =>
-            TeleprompterColorPickerComponent(this));
+      context: context,
+      builder: (BuildContext context) => TeleprompterColorPickerComponent(this),
+    );
   }
 
   // Getter for the current option index

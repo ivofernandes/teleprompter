@@ -35,9 +35,7 @@ class TextOptionNavigatorIconComponent extends StatelessWidget {
           child: updateIndex != null
               ? IconButton(
                   onPressed: () => updateIndex!(index),
-                  icon: Icon(
-                    icon,
-                  ),
+                  icon: Icon(icon),
                 )
               : Icon(icon, color: color),
         ),

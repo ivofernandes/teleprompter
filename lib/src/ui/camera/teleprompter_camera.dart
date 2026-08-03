@@ -10,10 +10,7 @@ import 'package:teleprompter/src/ui/camera/camera_actions.dart';
 class TeleprompterCamera extends StatefulWidget {
   final CameraController controller;
 
-  const TeleprompterCamera(
-    this.controller, {
-    super.key,
-  });
+  const TeleprompterCamera(this.controller, {super.key});
 
   @override
   _TeleprompterCameraState createState() => _TeleprompterCameraState();
@@ -102,11 +99,9 @@ class _TeleprompterCameraState extends State<TeleprompterCamera>
           Expanded(
             child: Container(
               padding: const EdgeInsets.all(1),
-              child: Center(
-                child: _cameraPreviewWidget(),
-              ),
+              child: Center(child: _cameraPreviewWidget()),
             ),
-          )
+          ),
         ],
       ),
     );
@@ -130,14 +125,14 @@ class _TeleprompterCameraState extends State<TeleprompterCamera>
         child: CameraPreview(
           widget.controller,
           child: LayoutBuilder(
-              builder: (BuildContext context, BoxConstraints constraints) =>
-                  GestureDetector(
-                    behavior: HitTestBehavior.opaque,
-                    onScaleStart: _handleScaleStart,
-                    onScaleUpdate: _handleScaleUpdate,
-                    onTapDown: (details) =>
-                        onViewFinderTap(details, constraints),
-                  )),
+            builder: (BuildContext context, BoxConstraints constraints) =>
+                GestureDetector(
+                  behavior: HitTestBehavior.opaque,
+                  onScaleStart: _handleScaleStart,
+                  onScaleUpdate: _handleScaleUpdate,
+                  onTapDown: (details) => onViewFinderTap(details, constraints),
+                ),
+          ),
         ),
       );
     }
@@ -153,8 +148,10 @@ class _TeleprompterCameraState extends State<TeleprompterCamera>
       return;
     }
 
-    _currentScale = (_baseScale * details.scale)
-        .clamp(_minAvailableZoom, _maxAvailableZoom);
+    _currentScale = (_baseScale * details.scale).clamp(
+      _minAvailableZoom,
+      _maxAvailableZoom,
+    );
 
     await widget.controller.setZoomLevel(_currentScale);
   }
@@ -171,13 +168,13 @@ class _TeleprompterCameraState extends State<TeleprompterCamera>
   }
 
   Future<void> initZoom() async {
-    await widget.controller
-        .getMaxZoomLevel()
-        .then((value) => _maxAvailableZoom = value);
+    await widget.controller.getMaxZoomLevel().then(
+      (value) => _maxAvailableZoom = value,
+    );
 
-    await widget.controller
-        .getMinZoomLevel()
-        .then((value) => _minAvailableZoom = value);
+    await widget.controller.getMinZoomLevel().then(
+      (value) => _minAvailableZoom = value,
+    );
   }
 
   Future<void> refreshCamera() async {

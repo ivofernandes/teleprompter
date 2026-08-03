@@ -24,10 +24,7 @@ class StopwatchWidget extends StatefulWidget {
   const StopwatchWidget({
     super.key,
     this.padding = const EdgeInsets.all(10),
-    this.style = const TextStyle(
-      fontSize: 20,
-      fontWeight: FontWeight.bold,
-    ),
+    this.style = const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
     this.showHours = true,
     this.showMinutes = true,
     this.showSeconds = true,
@@ -55,26 +52,23 @@ class _StopwatchWidgetState extends State<StopwatchWidget> {
 
   @override
   Widget build(BuildContext context) => Center(
-        child: StreamBuilder<int>(
-          stream: _stopWatchTimer.rawTime,
-          initialData: 0,
-          builder: (context, snap) {
-            final value = snap.data!;
-            final displayTime = StopWatchTimer.getDisplayTime(
-              value,
-              hours: widget.showHours,
-              minute: widget.showMinutes,
-              second: widget.showSeconds,
-              milliSecond: widget.showMilliseconds,
-            );
-            return Container(
-              padding: widget.padding,
-              child: Text(
-                displayTime,
-                style: widget.style,
-              ),
-            );
-          },
-        ),
-      );
+    child: StreamBuilder<int>(
+      stream: _stopWatchTimer.rawTime,
+      initialData: 0,
+      builder: (context, snap) {
+        final value = snap.data!;
+        final displayTime = StopWatchTimer.getDisplayTime(
+          value,
+          hours: widget.showHours,
+          minute: widget.showMinutes,
+          second: widget.showSeconds,
+          milliSecond: widget.showMilliseconds,
+        );
+        return Container(
+          padding: widget.padding,
+          child: Text(displayTime, style: widget.style),
+        );
+      },
+    ),
+  );
 }

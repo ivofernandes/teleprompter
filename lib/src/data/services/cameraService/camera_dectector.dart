@@ -35,8 +35,9 @@ class CameraDetector {
     cameraController!.addListener(() {
       AppLogger().debug('camera event: ${cameraController!.value}');
       if (cameraController!.value.hasError) {
-        AppLogger()
-            .debug('Camera error ${cameraController!.value.errorDescription}');
+        AppLogger().debug(
+          'Camera error ${cameraController!.value.errorDescription}',
+        );
       }
     });
 

@@ -14,8 +14,10 @@ class TeleprompterWidget extends StatefulWidget {
     this.savedToGallery = 'Video recorded saved to your gallery',
     this.errorSavingToGallery = 'Error saving video to your gallery',
     this.defaultTextColor = Colors.greenAccent,
-    this.startRecordingButton =
-        const Icon(Icons.fiber_manual_record_sharp, color: Colors.red),
+    this.startRecordingButton = const Icon(
+      Icons.fiber_manual_record_sharp,
+      color: Colors.red,
+    ),
     this.stopRecordingButton = const Icon(Icons.stop, color: Colors.red),
     this.floatingButtonShape,
     this.defaultOpacity = 0.7,
@@ -65,38 +67,33 @@ class _TeleprompterWidgetState extends State<TeleprompterWidget> {
 
   @override
   Widget build(BuildContext context) => ChangeNotifierProvider(
-        create: (_) => TeleprompterState(
-          context,
-          widget.defaultTextColor,
-        ),
-        child: Consumer<TeleprompterState>(
-          builder: (context, teleprompterState, child) {
-            final CameraController? cameraController =
-                CameraService().getCameraController();
+    create: (_) => TeleprompterState(context, widget.defaultTextColor),
+    child: Consumer<TeleprompterState>(
+      builder: (context, teleprompterState, child) {
+        final CameraController? cameraController = CameraService()
+            .getCameraController();
 
-            // Stack with a camera behind and text above:
-            return Stack(
-              children: [
-                cameraController != null
-                    ? TeleprompterCamera(cameraController)
-                    : const ColoredBox(
-                        color: Colors.black26,
-                      ),
-                Opacity(
-                  opacity: teleprompterState.getOpacity(),
-                  child: TextScrollerComponent(
-                    title: widget.title,
-                    text: widget.text,
-                    savedToGallery: widget.savedToGallery,
-                    errorSavingToGallery: widget.errorSavingToGallery,
-                    stopRecordingButton: widget.stopRecordingButton,
-                    startRecordingButton: widget.startRecordingButton,
-                    floatingButtonShape: widget.floatingButtonShape,
-                  ),
-                )
-              ],
-            );
-          },
-        ),
-      );
+        // Stack with a camera behind and text above:
+        return Stack(
+          children: [
+            cameraController != null
+                ? TeleprompterCamera(cameraController)
+                : const ColoredBox(color: Colors.black26),
+            Opacity(
+              opacity: teleprompterState.getOpacity(),
+              child: TextScrollerComponent(
+                title: widget.title,
+                text: widget.text,
+                savedToGallery: widget.savedToGallery,
+                errorSavingToGallery: widget.errorSavingToGallery,
+                stopRecordingButton: widget.stopRecordingButton,
+                startRecordingButton: widget.startRecordingButton,
+                floatingButtonShape: widget.floatingButtonShape,
+              ),
+            ),
+          ],
+        );
+      },
+    ),
+  );
 }

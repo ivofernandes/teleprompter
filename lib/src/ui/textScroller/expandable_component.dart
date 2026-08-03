@@ -53,10 +53,7 @@ class _ExpandableComponentState extends State<ExpandableComponent> {
         children: <Widget>[
           Align(
             alignment: Alignment.topCenter,
-            child: SizedBox(
-              height: textHeight,
-              child: widget.child,
-            ),
+            child: SizedBox(height: textHeight, child: widget.child),
           ),
           Positioned(
             top: textHeight! - 40,
@@ -90,7 +87,7 @@ class _ExpandableComponentState extends State<ExpandableComponent> {
                 },
               ),
             ),
-          )
+          ),
         ],
       ),
     );

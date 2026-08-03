@@ -43,6 +43,8 @@ android {
     }
 
     defaultConfig {
+        testInstrumentationRunnerArgument "clearPackageData", "true"
+        testInstrumentationRunner "pl.leancode.patrol.PatrolJUnitRunner"
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId "com.example.example"
         // You can update the following values to match your application needs.

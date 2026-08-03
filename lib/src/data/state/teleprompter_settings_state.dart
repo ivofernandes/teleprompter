@@ -39,7 +39,9 @@ mixin TeleprompterSettingsState {
   Color _textColor = Colors.greenAccent;
 
   Future<void> loadSettings(
-      BuildContext context, Color defaultTextColor) async {
+    BuildContext context,
+    Color defaultTextColor,
+  ) async {
     _textColor = defaultTextColor;
     final SharedPreferences prefs = await SharedPreferences.getInstance();
 

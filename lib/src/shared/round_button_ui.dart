@@ -3,10 +3,7 @@ import 'package:flutter/material.dart';
 class RoundButtonUI extends StatelessWidget {
   final Widget? child;
 
-  const RoundButtonUI({
-    this.child,
-    super.key,
-  });
+  const RoundButtonUI({this.child, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -28,19 +25,13 @@ class RoundButtonUI extends StatelessWidget {
               BoxShadow(
                 color: foregroundColor.withValues(alpha: 0.4),
                 spreadRadius: 1,
-              )
+              ),
             ],
           ),
           width: 40,
           height: 40,
         ),
-        ClipOval(
-          child: SizedBox(
-            width: 40,
-            height: 40,
-            child: child,
-          ),
-        )
+        ClipOval(child: SizedBox(width: 40, height: 40, child: child)),
       ],
     );
   }

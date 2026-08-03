@@ -8,9 +8,7 @@ class AppLogger {
 
   AppLogger._internal();
 
-  final Logger _logger = Logger(
-    printer: SimplePrinter(),
-  );
+  final Logger _logger = Logger(printer: SimplePrinter());
 
   void error(dynamic event, [dynamic error, StackTrace? stackTrace]) {
     _logger.e('$event', error: error, stackTrace: stackTrace);

@@ -6,10 +6,7 @@ import 'package:teleprompter/src/shared/round_button_ui.dart';
 class TeleprompterColorPickerComponent extends StatelessWidget {
   final TeleprompterState teleprompterState;
 
-  const TeleprompterColorPickerComponent(
-    this.teleprompterState, {
-    super.key,
-  });
+  const TeleprompterColorPickerComponent(this.teleprompterState, {super.key});
 
   void changeColor(Color color) {
     teleprompterState.textColor = color;
@@ -18,21 +15,21 @@ class TeleprompterColorPickerComponent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => AlertDialog(
-        title: Align(
-          alignment: Alignment.centerRight,
-          child: RoundButtonUI(
-            child: IconButton(
-              onPressed: () => Navigator.of(context).pop(),
-              icon: const Icon(Icons.clear),
-            ),
-          ),
+    title: Align(
+      alignment: Alignment.centerRight,
+      child: RoundButtonUI(
+        child: IconButton(
+          onPressed: () => Navigator.of(context).pop(),
+          icon: const Icon(Icons.clear),
         ),
-        content: SingleChildScrollView(
-          child: ColorPicker(
-            pickerColor: teleprompterState.getTextColor(),
-            onColorChanged: changeColor,
-            pickerAreaHeightPercent: 0.8,
-          ),
-        ),
-      );
+      ),
+    ),
+    content: SingleChildScrollView(
+      child: ColorPicker(
+        pickerColor: teleprompterState.getTextColor(),
+        onColorChanged: changeColor,
+        pickerAreaHeightPercent: 0.8,
+      ),
+    ),
+  );
 }

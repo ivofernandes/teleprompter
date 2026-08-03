@@ -16,8 +16,10 @@ class TextScrollerOptionsComponent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final TeleprompterState teleprompterState =
-        Provider.of<TeleprompterState>(context, listen: false);
+    final TeleprompterState teleprompterState = Provider.of<TeleprompterState>(
+      context,
+      listen: false,
+    );
 
     return SizedBox(
       height: 80,
@@ -49,12 +51,12 @@ class TextScrollerOptionsComponent extends StatelessWidget {
                     TextOptionNavigatorIconComponent(
                       index: index + 1,
                       updateIndex: updateIndex,
-                    )
+                    ),
                   ],
                 ),
               ),
             ),
-            const SizedBox(width: 60)
+            const SizedBox(width: 60),
           ],
         ),
       ),
