@@ -155,7 +155,7 @@ class _RecordingScreenState extends State<RecordingScreen> {
                       });
                     },
                   ),
-                  Text('Hours'),
+                  const Text('Hours'),
                   Checkbox(
                     value: showMinutes,
                     onChanged: (val) {
@@ -164,7 +164,7 @@ class _RecordingScreenState extends State<RecordingScreen> {
                       });
                     },
                   ),
-                  Text('Minutes'),
+                  const Text('Minutes'),
                   Checkbox(
                     value: showSeconds,
                     onChanged: (val) {
@@ -173,7 +173,7 @@ class _RecordingScreenState extends State<RecordingScreen> {
                       });
                     },
                   ),
-                  Text('Seconds'),
+                  const Text('Seconds'),
                   Checkbox(
                     value: showMilliseconds,
                     onChanged: (val) {
@@ -182,7 +182,7 @@ class _RecordingScreenState extends State<RecordingScreen> {
                       });
                     },
                   ),
-                  Text('Milliseconds'),
+                  const Text('Milliseconds'),
                 ],
               ),
             ),

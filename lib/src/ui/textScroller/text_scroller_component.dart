@@ -111,12 +111,16 @@ class _TextScrollerComponentState extends State<TextScrollerComponent>
                         .stopRecording();
                     teleprompterState.refresh();
 
-                    if (success && mounted) {
+                    if (!context.mounted) {
+                      return;
+                    }
+
+                    if (success) {
                       MySnackBar.show(
                         context: context,
                         text: widget.savedToGallery,
                       );
-                    } else if (mounted) {
+                    } else {
                       MySnackBar.showError(
                         context: context,
                         text: widget.errorSavingToGallery,

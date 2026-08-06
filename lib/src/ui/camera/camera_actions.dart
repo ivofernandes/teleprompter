@@ -15,6 +15,9 @@ mixin CameraActions {
     try {
       await cameraController.resumeVideoRecording();
     } on CameraException catch (e) {
+      if (!context.mounted) {
+        rethrow;
+      }
       showCameraException(e, context);
       rethrow;
     }
