@@ -7,20 +7,19 @@ mixin CameraActions {
   Future<void> resumeVideoRecording(
     CameraController? cameraController,
     BuildContext context,
-  ) async {
+  ) {
     if (cameraController == null || !cameraController.value.isRecordingVideo) {
-      return;
+      return Future<void>.value();
     }
 
-    try {
-      await cameraController.resumeVideoRecording();
-    } on CameraException catch (e) {
-      if (!context.mounted) {
-        rethrow;
+    return cameraController.resumeVideoRecording().onError<CameraException>(
+      (CameraException exception, StackTrace stackTrace) {
+        if (context.mounted) {
+          showCameraException(exception, context);
+        }
+        Error.throwWithStackTrace(exception, stackTrace);
       }
-      showCameraException(e, context);
-      rethrow;
-    }
+    );
   }
 
   void showCameraException(CameraException e, BuildContext context) {

@@ -107,25 +107,7 @@ class _TextScrollerComponentState extends State<TextScrollerComponent>
           teleprompterState.isRecording()
               ? IconButton(
                   onPressed: () async {
-                    final bool success = await teleprompterState
-                        .stopRecording();
-                    teleprompterState.refresh();
-
-                    if (!context.mounted) {
-                      return;
-                    }
-
-                    if (success) {
-                      MySnackBar.show(
-                        context: context,
-                        text: widget.savedToGallery,
-                      );
-                    } else {
-                      MySnackBar.showError(
-                        context: context,
-                        text: widget.errorSavingToGallery,
-                      );
-                    }
+                    await _stopRecording(teleprompterState);
                   },
                   icon: widget.stopRecordingButton,
                 )
@@ -174,5 +156,23 @@ class _TextScrollerComponentState extends State<TextScrollerComponent>
             : const Icon(Icons.play_arrow),
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
+  }
+
+  Future<void> _stopRecording(TeleprompterState teleprompterState) async {
+    final bool success = await teleprompterState.stopRecording();
+    teleprompterState.refresh();
+
+    if (!mounted) {
+      return;
+    }
+
+    if (success) {
+      MySnackBar.show(context: context, text: widget.savedToGallery);
+    } else {
+      MySnackBar.showError(
+        context: context,
+        text: widget.errorSavingToGallery,
+      );
+    }
   }
 }
