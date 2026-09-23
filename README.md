@@ -3,6 +3,8 @@ Flutter package to create a teleprompter from a simple text
 Features:
 - Play the text generated in your app with an automatic scroll
 - Record video directly inside the app
+- Take pictures instead of video with a configurable capture mode
+- Place a custom (including animated) widget over the camera preview
 - Automatic save to gallery on stop recording
 
 Demo using the example of the package:
@@ -65,6 +67,30 @@ Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac tu
   }
 }
 ```
+
+### Pictures and camera overlays
+
+Use `captureMode` to choose whether the camera action records a video or takes
+a picture. The optional `cameraOverlayBuilder` lets the host app decide what is
+drawn over the camera preview and receives the current recording state and
+capture mode:
+
+```dart
+TeleprompterWidget(
+  text: text,
+  captureMode: TeleprompterCaptureMode.photo,
+  cameraOverlayBuilder: (context, isRecording, captureMode) {
+    return const Center(
+      child: Icon(Icons.center_focus_weak, color: Colors.white, size: 72),
+    );
+  },
+)
+```
+
+In video mode, leaving `cameraOverlayBuilder` unset displays the package's
+animated white recording marker. `RecordingMarker` is also exported so it can
+be composed into a custom overlay. Overlays decorate the live preview; the
+platform camera records the unmodified camera feed.
 
 
 ### iOS

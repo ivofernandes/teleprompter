@@ -14,8 +14,9 @@ class MyApp extends StatelessWidget {
         '''Flutter package to create a teleprompter from a simple text
 Features:
 - Play the text generated in your app with an automatic scroll
-- Record video directly inside the app
-- Automatic save to gallery on stop recording
+- Record video or take a photo directly inside the app
+- Add an animated white mark over the camera preview
+- Automatic save to gallery
     
     The following text is just to make it easier to test the scrolling functionality:
     
@@ -58,7 +59,9 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  TextEditingController textEditingController = TextEditingController();
+  final TextEditingController textEditingController = TextEditingController();
+  TeleprompterCaptureMode captureMode = TeleprompterCaptureMode.video;
+  bool showWhiteMark = true;
 
   @override
   void initState() {
@@ -66,6 +69,12 @@ class _HomeScreenState extends State<HomeScreen> {
     textEditingController.text = widget.text;
     textEditingController.selection =
         const TextSelection(baseOffset: 0, extentOffset: 0);
+  }
+
+  @override
+  void dispose() {
+    textEditingController.dispose();
+    super.dispose();
   }
 
   @override
@@ -84,21 +93,57 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           title: const Text('Teleprompter'),
         ),
-        body: Container(
-          margin: const EdgeInsets.all(10),
-          child: TextField(
-            controller: textEditingController,
-            decoration: InputDecoration(
-              contentPadding: const EdgeInsets.all(10),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10),
+        body: Padding(
+          padding: const EdgeInsets.all(10),
+          child: Column(
+            children: [
+              Expanded(
+                child: TextField(
+                  controller: textEditingController,
+                  decoration: InputDecoration(
+                    contentPadding: const EdgeInsets.all(10),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    hintText: 'Text for teleprompter',
+                  ),
+                  scrollPadding: const EdgeInsets.all(20),
+                  keyboardType: TextInputType.multiline,
+                  maxLines: null,
+                  expands: true,
+                  textAlignVertical: TextAlignVertical.top,
+                  autofocus: true,
+                ),
               ),
-              hintText: "Text for teleprompter",
-            ),
-            scrollPadding: const EdgeInsets.all(20.0),
-            keyboardType: TextInputType.multiline,
-            maxLines: 99999,
-            autofocus: true,
+              const SizedBox(height: 12),
+              SegmentedButton<TeleprompterCaptureMode>(
+                segments: const [
+                  ButtonSegment(
+                    value: TeleprompterCaptureMode.video,
+                    icon: Icon(Icons.videocam),
+                    label: Text('Video'),
+                  ),
+                  ButtonSegment(
+                    value: TeleprompterCaptureMode.photo,
+                    icon: Icon(Icons.photo_camera),
+                    label: Text('Photo'),
+                  ),
+                ],
+                selected: {captureMode},
+                onSelectionChanged: (selection) {
+                  setState(() => captureMode = selection.first);
+                },
+              ),
+              SwitchListTile(
+                key: const Key('white-mark-switch'),
+                contentPadding: EdgeInsets.zero,
+                title: const Text('Animated white mark'),
+                subtitle: const Text('Show it over the camera preview'),
+                secondary: const Icon(Icons.branding_watermark_outlined),
+                value: showWhiteMark,
+                onChanged: (value) => setState(() => showWhiteMark = value),
+              ),
+            ],
           ),
         ),
         floatingActionButton: FloatingActionButton(
@@ -107,6 +152,76 @@ class _HomeScreenState extends State<HomeScreen> {
             MaterialPageRoute(
               builder: (context) => TeleprompterWidget(
                 text: textEditingController.text,
+                captureMode: captureMode,
+                cameraOverlayBuilder: (context, isRecording, captureMode) =>
+                    showWhiteMark
+                    ? _AnimatedWhiteMark(isRecording: isRecording)
+                    : const SizedBox.shrink(),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _AnimatedWhiteMark extends StatefulWidget {
+  const _AnimatedWhiteMark({required this.isRecording});
+
+  final bool isRecording;
+
+  @override
+  State<_AnimatedWhiteMark> createState() => _AnimatedWhiteMarkState();
+}
+
+class _AnimatedWhiteMarkState extends State<_AnimatedWhiteMark>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController controller = AnimationController(
+    vsync: this,
+    duration: const Duration(milliseconds: 1200),
+  )..repeat(reverse: true);
+
+  late final Animation<double> opacity = Tween<double>(
+    begin: 0.45,
+    end: 0.9,
+  ).animate(CurvedAnimation(parent: controller, curve: Curves.easeInOut));
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Positioned(
+      left: 20,
+      bottom: 28,
+      child: IgnorePointer(
+        child: FadeTransition(
+          opacity: opacity,
+          child: DecoratedBox(
+            decoration: BoxDecoration(
+              border: Border.all(color: Colors.white, width: 2),
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const Icon(Icons.auto_awesome, color: Colors.white, size: 18),
+                  const SizedBox(width: 6),
+                  Text(
+                    widget.isRecording ? 'LIVE' : 'TELEPROMPTER',
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      letterSpacing: 1.5,
+                    ),
+                  ),
+                ],
               ),
             ),
           ),

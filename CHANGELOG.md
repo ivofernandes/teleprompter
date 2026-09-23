@@ -40,7 +40,11 @@ Updated dependencies
 # 0.1.1 1/6/2024
 Updated dependencies
 
-## 0.1.2
-
+## 0.1.2 3/4/2026
 - Update dependencies to their current stable releases.
 - Replace deprecated Flutter color APIs.
+
+## 0.1.3 unpublished
+- Add configurable photo and video capture modes.
+- Add customizable camera preview overlays and an animated recording marker.
+

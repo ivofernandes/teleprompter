@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:teleprompter/src/data/capture_mode.dart';
 import 'package:teleprompter/src/data/state/recorder_state.dart';
 import 'package:teleprompter/src/data/state/teleprompter_settings_state.dart';
 import 'package:teleprompter/src/shared/app_logger.dart';
@@ -12,7 +13,12 @@ class TeleprompterState
   double _scrollPosition = 0; // Current scroll position
 
   // Constructor initializes the teleprompter state
-  TeleprompterState(BuildContext context, Color defaultTextColor) {
+  TeleprompterState(
+    BuildContext context,
+    Color defaultTextColor,
+    TeleprompterCaptureMode initialCaptureMode,
+  ) {
+    captureMode = initialCaptureMode;
     prepareCamera().then((value) => refresh());
     loadSettings(context, defaultTextColor).then((value) => refresh());
   }

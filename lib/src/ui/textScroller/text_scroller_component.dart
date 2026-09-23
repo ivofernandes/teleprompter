@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:native_device_orientation/native_device_orientation.dart';
 import 'package:provider/provider.dart';
+import 'package:teleprompter/src/data/capture_mode.dart';
 import 'package:teleprompter/src/data/state/teleprompter_state.dart';
 import 'package:teleprompter/src/shared/app_logger.dart';
 import 'package:teleprompter/src/shared/my_snack_bar.dart';
@@ -23,11 +24,17 @@ class TextScrollerComponent extends StatefulWidget {
   /// An error message to be displayed when there is an issue saving the recording to the gallery.
   final String errorSavingToGallery;
 
+  final String pictureSavedToGallery;
+
+  final String errorSavingPictureToGallery;
+
   /// Widget to be used as start recording
   final Widget startRecordingButton;
 
   /// Widget to be used as stop recording
   final Widget stopRecordingButton;
+
+  final Widget takePictureButton;
 
   /// An optional shape border for the floating action button.
   final ShapeBorder? floatingButtonShape;
@@ -37,8 +44,11 @@ class TextScrollerComponent extends StatefulWidget {
     required this.text,
     required this.savedToGallery,
     required this.errorSavingToGallery,
+    required this.pictureSavedToGallery,
+    required this.errorSavingPictureToGallery,
     required this.startRecordingButton,
     required this.stopRecordingButton,
+    required this.takePictureButton,
     this.floatingButtonShape,
     super.key,
   });
@@ -112,11 +122,12 @@ class _TextScrollerComponentState extends State<TextScrollerComponent>
                   icon: widget.stopRecordingButton,
                 )
               : IconButton(
-                  onPressed: () {
-                    teleprompterState.startRecording(teleprompterState);
-                    teleprompterState.refresh();
-                  },
-                  icon: widget.startRecordingButton,
+                  onPressed: () => _startCapture(teleprompterState),
+                  icon:
+                      teleprompterState.captureMode ==
+                          TeleprompterCaptureMode.photo
+                      ? widget.takePictureButton
+                      : widget.startRecordingButton,
                 ),
         ],
       ),
@@ -172,6 +183,27 @@ class _TextScrollerComponentState extends State<TextScrollerComponent>
       MySnackBar.showError(
         context: context,
         text: widget.errorSavingToGallery,
+      );
+    }
+  }
+
+  Future<void> _startCapture(TeleprompterState teleprompterState) async {
+    if (teleprompterState.captureMode == TeleprompterCaptureMode.video) {
+      await teleprompterState.startRecording(teleprompterState);
+      teleprompterState.refresh();
+      return;
+    }
+
+    final success = await teleprompterState.takePicture(teleprompterState);
+    if (!mounted) {
+      return;
+    }
+    if (success) {
+      MySnackBar.show(context: context, text: widget.pictureSavedToGallery);
+    } else {
+      MySnackBar.showError(
+        context: context,
+        text: widget.errorSavingPictureToGallery,
       );
     }
   }

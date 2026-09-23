@@ -1,6 +1,8 @@
-# example
+# Teleprompter example
 
-A new Flutter project.
+The example lets you edit a script, choose **Video** or **Photo** capture, and
+enable an animated white mark over the camera preview before opening the
+teleprompter.
 
 ## Getting Started
 

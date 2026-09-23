@@ -72,6 +72,33 @@ class CameraService extends CameraDetector {
     return false;
   }
 
+  Future<bool> takePicture(TeleprompterState teleprompterState) async {
+    try {
+      if (cameraController == null || !cameraController!.value.isInitialized) {
+        await teleprompterState.prepareCamera();
+      }
+
+      if (cameraController == null || !cameraController!.value.isInitialized) {
+        AppLogger().debug('Error: select a camera first.');
+        return false;
+      }
+
+      final XFile file = await cameraController!.takePicture();
+      final hasAccess = await Gal.hasAccess();
+      if (!hasAccess) {
+        await Gal.requestAccess();
+      }
+      await Gal.putImage(file.path);
+      await File(file.path).delete();
+      return true;
+    } on CameraException catch (e) {
+      AppLogger().error(e);
+    } catch (e) {
+      AppLogger().error('Unexpected error: $e');
+    }
+    return false;
+  }
+
   Future<void> pauseVideoRecording() async {
     if (cameraController == null || !cameraController!.value.isRecordingVideo) {
       return;
