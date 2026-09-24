@@ -3,19 +3,26 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:example/main.dart';
 
 void main() {
-  testWidgets('capture mode and white mark can be configured', (
+  testWidgets('picture overlay opens as a separate customizable feature', (
     WidgetTester tester,
   ) async {
     await tester.pumpWidget(const MyApp());
 
-    expect(find.text('Video'), findsOneWidget);
-    expect(find.text('Photo'), findsOneWidget);
-    expect(find.text('Animated white mark'), findsOneWidget);
+    expect(find.text('Picture with custom overlay'), findsOneWidget);
+    await tester.tap(find.byKey(const Key('picture-overlay-navigation')));
+    await tester.pumpAndSettle();
 
-    final switchFinder = find.byKey(const Key('white-mark-switch'));
-    expect(tester.widget<SwitchListTile>(switchFinder).value, isTrue);
-    await tester.tap(switchFinder);
+    expect(find.text('Customize picture overlay'), findsOneWidget);
+    expect(find.text('Behind the scenes'), findsOneWidget);
+    expect(find.text('Creator'), findsOneWidget);
+    expect(find.text('Event'), findsOneWidget);
+    expect(find.byKey(const Key('open-overlay-camera')), findsOneWidget);
+
+    await tester.enterText(
+      find.byKey(const Key('overlay-headline-field')),
+      'Launch day',
+    );
     await tester.pump();
-    expect(tester.widget<SwitchListTile>(switchFinder).value, isFalse);
+    expect(find.text('Launch day'), findsNWidgets(2));
   });
 }

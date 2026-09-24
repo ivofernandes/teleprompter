@@ -1,8 +1,17 @@
 # Teleprompter example
 
-The example lets you edit a script, choose **Video** or **Photo** capture, and
-enable an animated white mark over the camera preview before opening the
-teleprompter.
+The example has two separate flows:
+
+- Edit a script and open the video teleprompter.
+- Open **Picture with custom overlay** to design a rich camera overlay before
+  taking a photo. The customization screen includes a live preview, editable
+  text, creator and event layouts, accent colors, and an optional location
+  badge.
+
+For Dart examples showing how to use `captureMode` and
+`cameraOverlayBuilder` for both pictures and videos, read
+[Pictures, videos, and camera overlays](../README.md#pictures-videos-and-camera-overlays)
+in the package README.
 
 ## Getting Started
 

@@ -68,29 +68,160 @@ Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac tu
 }
 ```
 
-### Pictures and camera overlays
+### Pictures, videos, and camera overlays
 
-Use `captureMode` to choose whether the camera action records a video or takes
-a picture. The optional `cameraOverlayBuilder` lets the host app decide what is
-drawn over the camera preview and receives the current recording state and
-capture mode:
+`captureMode` controls the camera action shown by `TeleprompterWidget`:
+
+- `TeleprompterCaptureMode.video` records video and is the default.
+- `TeleprompterCaptureMode.photo` takes a single picture.
+
+Use `cameraOverlayBuilder` to place any Flutter widget above the camera preview.
+The builder receives:
+
+1. The current `BuildContext`.
+2. `isRecording`, which changes when video recording starts or stops.
+3. The active `TeleprompterCaptureMode`.
+
+For example, this reusable overlay combines a status pill, safe-area padding,
+and a branded information card instead of displaying only a text label:
+
+```dart
+class CameraBrandOverlay extends StatelessWidget {
+  const CameraBrandOverlay({
+    required this.isRecording,
+    required this.captureMode,
+    super.key,
+  });
+
+  final bool isRecording;
+  final TeleprompterCaptureMode captureMode;
+
+  @override
+  Widget build(BuildContext context) {
+    final isPhoto = captureMode == TeleprompterCaptureMode.photo;
+
+    return Positioned.fill(
+      child: IgnorePointer(
+        child: SafeArea(
+          minimum: const EdgeInsets.all(20),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              DecoratedBox(
+                decoration: BoxDecoration(
+                  color: isRecording ? Colors.red : Colors.white,
+                  borderRadius: BorderRadius.circular(24),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 12,
+                    vertical: 8,
+                  ),
+                  child: Text(
+                    isPhoto
+                        ? 'PHOTO'
+                        : isRecording
+                            ? 'RECORDING'
+                            : 'READY',
+                    style: const TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ),
+              const Spacer(),
+              Container(
+                padding: const EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  color: Colors.black.withValues(alpha: 0.7),
+                  borderRadius: BorderRadius.circular(16),
+                  border: const Border(
+                    left: BorderSide(color: Colors.orangeAccent, width: 5),
+                  ),
+                ),
+                child: const Row(
+                  children: [
+                    CircleAvatar(child: Icon(Icons.movie_filter)),
+                    SizedBox(width: 12),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Behind the scenes',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          Text(
+                            'Made with Teleprompter',
+                            style: TextStyle(color: Colors.white70),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+```
+
+#### Add an overlay in picture mode
+
+Set `captureMode` to `photo` and return the overlay from the builder. The camera
+control will take and save a picture instead of starting a recording:
 
 ```dart
 TeleprompterWidget(
-  text: text,
+  text: 'Look at the camera and introduce today\'s topic.',
   captureMode: TeleprompterCaptureMode.photo,
   cameraOverlayBuilder: (context, isRecording, captureMode) {
-    return const Center(
-      child: Icon(Icons.center_focus_weak, color: Colors.white, size: 72),
+    return CameraBrandOverlay(
+      isRecording: isRecording,
+      captureMode: captureMode,
     );
   },
-)
+);
 ```
 
-In video mode, leaving `cameraOverlayBuilder` unset displays the package's
-animated white recording marker. `RecordingMarker` is also exported so it can
-be composed into a custom overlay. Overlays decorate the live preview; the
-platform camera records the unmodified camera feed.
+#### Add an overlay in video mode
+
+The same API works for video. Use `isRecording` to update the overlay while the
+recording is active:
+
+```dart
+TeleprompterWidget(
+  text: 'This script scrolls while the video is being recorded.',
+  captureMode: TeleprompterCaptureMode.video,
+  cameraOverlayBuilder: (context, isRecording, captureMode) {
+    return CameraBrandOverlay(
+      isRecording: isRecording,
+      captureMode: captureMode,
+    );
+  },
+);
+```
+
+If `cameraOverlayBuilder` is omitted in video mode, the package displays its
+default animated recording marker. `RecordingMarker` is exported if you want to
+include that marker inside your own composition.
+
+> **Important:** `cameraOverlayBuilder` decorates the live Flutter preview. The
+> camera plugin saves the unmodified camera image or video, so the overlay is
+> not burned into the exported media.
+
+The example app includes a complete customization screen with a live preview,
+editable content, layouts, colors, and navigation into picture mode. See
+[`example/lib/picture_overlay_screen.dart`](example/lib/picture_overlay_screen.dart).
 
 
 ### iOS

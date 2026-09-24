@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:teleprompter/teleprompter.dart';
 
+import 'picture_overlay_screen.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -60,8 +62,6 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final TextEditingController textEditingController = TextEditingController();
-  TeleprompterCaptureMode captureMode = TeleprompterCaptureMode.video;
-  bool showWhiteMark = true;
 
   @override
   void initState() {
@@ -115,33 +115,25 @@ class _HomeScreenState extends State<HomeScreen> {
                   autofocus: true,
                 ),
               ),
-              const SizedBox(height: 12),
-              SegmentedButton<TeleprompterCaptureMode>(
-                segments: const [
-                  ButtonSegment(
-                    value: TeleprompterCaptureMode.video,
-                    icon: Icon(Icons.videocam),
-                    label: Text('Video'),
+              const SizedBox(height: 8),
+              Card(
+                clipBehavior: Clip.antiAlias,
+                child: ListTile(
+                  key: const Key('picture-overlay-navigation'),
+                  leading: const CircleAvatar(
+                    child: Icon(Icons.add_photo_alternate_outlined),
                   ),
-                  ButtonSegment(
-                    value: TeleprompterCaptureMode.photo,
-                    icon: Icon(Icons.photo_camera),
-                    label: Text('Photo'),
+                  title: const Text('Picture with custom overlay'),
+                  subtitle: const Text(
+                    'Design a camera overlay, preview it, then take a photo',
                   ),
-                ],
-                selected: {captureMode},
-                onSelectionChanged: (selection) {
-                  setState(() => captureMode = selection.first);
-                },
-              ),
-              SwitchListTile(
-                key: const Key('white-mark-switch'),
-                contentPadding: EdgeInsets.zero,
-                title: const Text('Animated white mark'),
-                subtitle: const Text('Show it over the camera preview'),
-                secondary: const Icon(Icons.branding_watermark_outlined),
-                value: showWhiteMark,
-                onChanged: (value) => setState(() => showWhiteMark = value),
+                  trailing: const Icon(Icons.chevron_right),
+                  onTap: () => Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => const PictureOverlayScreen(),
+                    ),
+                  ),
+                ),
               ),
             ],
           ),
@@ -152,76 +144,6 @@ class _HomeScreenState extends State<HomeScreen> {
             MaterialPageRoute(
               builder: (context) => TeleprompterWidget(
                 text: textEditingController.text,
-                captureMode: captureMode,
-                cameraOverlayBuilder: (context, isRecording, captureMode) =>
-                    showWhiteMark
-                    ? _AnimatedWhiteMark(isRecording: isRecording)
-                    : const SizedBox.shrink(),
-              ),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class _AnimatedWhiteMark extends StatefulWidget {
-  const _AnimatedWhiteMark({required this.isRecording});
-
-  final bool isRecording;
-
-  @override
-  State<_AnimatedWhiteMark> createState() => _AnimatedWhiteMarkState();
-}
-
-class _AnimatedWhiteMarkState extends State<_AnimatedWhiteMark>
-    with SingleTickerProviderStateMixin {
-  late final AnimationController controller = AnimationController(
-    vsync: this,
-    duration: const Duration(milliseconds: 1200),
-  )..repeat(reverse: true);
-
-  late final Animation<double> opacity = Tween<double>(
-    begin: 0.45,
-    end: 0.9,
-  ).animate(CurvedAnimation(parent: controller, curve: Curves.easeInOut));
-
-  @override
-  void dispose() {
-    controller.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Positioned(
-      left: 20,
-      bottom: 28,
-      child: IgnorePointer(
-        child: FadeTransition(
-          opacity: opacity,
-          child: DecoratedBox(
-            decoration: BoxDecoration(
-              border: Border.all(color: Colors.white, width: 2),
-              borderRadius: BorderRadius.circular(8),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  const Icon(Icons.auto_awesome, color: Colors.white, size: 18),
-                  const SizedBox(width: 6),
-                  Text(
-                    widget.isRecording ? 'LIVE' : 'TELEPROMPTER',
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      letterSpacing: 1.5,
-                    ),
-                  ),
-                ],
               ),
             ),
           ),
