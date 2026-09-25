@@ -138,11 +138,10 @@ class _PictureOverlayScreenState extends State<PictureOverlayScreen> {
               final includeLocation = showLocation;
               Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: (context) => TeleprompterWidget(
-                    text: '',
+                  builder: (context) => OverlayCameraWidget(
                     title: 'Picture overlay',
                     captureMode: TeleprompterCaptureMode.photo,
-                    cameraOverlayBuilder: (context, _, __) => PictureOverlay(
+                    overlayBuilder: (context) => PictureOverlay(
                       headline: headline,
                       detail: detail,
                       accentColor: selectedColor,

@@ -47,4 +47,8 @@ Updated dependencies
 ## 0.1.3 unpublished
 - Add configurable photo and video capture modes.
 - Add customizable camera preview overlays and an animated recording marker.
-
+- Add a dedicated overlay camera without teleprompter scrolling controls.
+- Composite overlays into saved photos and require a video compositor before
+  saving overlay videos.
+- Preserve the camera frame dimensions and orient overlay widgets to the same
+  aspect ratio as the preview and exported media.

@@ -11,6 +11,49 @@ class CameraService extends CameraDetector {
   factory CameraService() => _singleton;
   CameraService._internal();
 
+  /// Makes the front camera available without requiring teleprompter state.
+  Future<CameraController?> prepareCamera() async {
+    if (cameraController?.value.isInitialized ?? false) {
+      return cameraController;
+    }
+    await startCameras();
+    await selectFrontCamera();
+    return cameraController;
+  }
+
+  /// Captures a file but does not save it. Used when media must be processed.
+  Future<XFile> capturePicture() async {
+    final controller = await prepareCamera();
+    if (controller == null || !controller.value.isInitialized) {
+      throw CameraException('cameraUnavailable', 'No camera is available.');
+    }
+    return controller.takePicture();
+  }
+
+  /// Stops recording and returns the unmodified temporary recording.
+  Future<XFile> stopRecordingFile() async {
+    if (cameraController == null || !cameraController!.value.isRecordingVideo) {
+      throw CameraException('notRecording', 'No video is being recorded.');
+    }
+    return cameraController!.stopVideoRecording();
+  }
+
+  Future<void> saveImage(String filePath) async {
+    await _requestGalleryAccess();
+    await Gal.putImage(filePath);
+  }
+
+  Future<void> saveVideo(String filePath) async {
+    await _requestGalleryAccess();
+    await Gal.putVideo(filePath);
+  }
+
+  Future<void> _requestGalleryAccess() async {
+    if (!await Gal.hasAccess()) {
+      await Gal.requestAccess();
+    }
+  }
+
   Future<void> startRecording(TeleprompterState teleprompterState) async {
     try {
       if (cameraController == null || !cameraController!.value.isInitialized) {

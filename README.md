@@ -215,12 +215,36 @@ If `cameraOverlayBuilder` is omitted in video mode, the package displays its
 default animated recording marker. `RecordingMarker` is exported if you want to
 include that marker inside your own composition.
 
-> **Important:** `cameraOverlayBuilder` decorates the live Flutter preview. The
-> camera plugin saves the unmodified camera image or video, so the overlay is
-> not burned into the exported media.
+`cameraOverlayBuilder` remains useful when an overlay only needs to appear in
+the teleprompter preview. To create exported media that contains the overlay,
+use the dedicated `OverlayCameraWidget` instead. It intentionally contains no
+script scroller or text controls:
+
+```dart
+OverlayCameraWidget(
+  captureMode: TeleprompterCaptureMode.photo,
+  overlayBuilder: (context) => const CameraBrandOverlay(
+    isRecording: false,
+    captureMode: TeleprompterCaptureMode.photo,
+  ),
+);
+```
+
+In photo mode the package preserves the camera image's original pixel size and
+aspect ratio. The overlay is rendered at that same frame size and composited
+into the PNG before it is copied to the gallery, so the saved picture matches
+the preview rather than merely displaying a Flutter widget above it.
+
+Video encoding differs between platforms, so video mode requires a
+`videoOverlayProcessor`. The callback receives the raw recording, a transparent
+PNG of the overlay, and the preview size. It must return a video with that PNG
+composited over every frame; only its returned file is saved. Requiring the
+processor prevents an apparently successful capture from silently saving a
+video without its overlay.
 
 The example app includes a complete customization screen with a live preview,
-editable content, layouts, colors, and navigation into picture mode. See
+editable content, layouts, colors, and navigation into the dedicated overlay
+camera. See
 [`example/lib/picture_overlay_screen.dart`](example/lib/picture_overlay_screen.dart).
 
 
