@@ -12,14 +12,15 @@ mixin CameraActions {
       return Future<void>.value();
     }
 
-    return cameraController.resumeVideoRecording().onError<CameraException>(
-      (CameraException exception, StackTrace stackTrace) {
-        if (context.mounted) {
-          showCameraException(exception, context);
-        }
-        Error.throwWithStackTrace(exception, stackTrace);
+    return cameraController.resumeVideoRecording().onError<CameraException>((
+      CameraException exception,
+      StackTrace stackTrace,
+    ) {
+      if (context.mounted) {
+        showCameraException(exception, context);
       }
-    );
+      Error.throwWithStackTrace(exception, stackTrace);
+    });
   }
 
   void showCameraException(CameraException e, BuildContext context) {

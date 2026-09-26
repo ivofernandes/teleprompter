@@ -15,11 +15,8 @@ import 'package:teleprompter/src/shared/app_logger.dart';
 /// appropriate native encoder depends on its supported platforms. The returned
 /// file is the one saved to the gallery. [outputSize] is the oriented camera
 /// frame size in pixels; the overlay PNG is rendered at that same size.
-typedef VideoOverlayProcessor = Future<XFile> Function(
-  XFile video,
-  XFile overlay,
-  Size outputSize,
-);
+typedef VideoOverlayProcessor =
+    Future<XFile> Function(XFile video, XFile overlay, Size outputSize);
 
 /// A camera made specifically for producing photos or videos with an overlay.
 ///
@@ -234,18 +231,15 @@ class _OverlayCameraWidgetState extends State<OverlayCameraWidget> {
     XFile? output;
     try {
       raw = await CameraService().stopRecordingFile();
-      final boundary = _overlayKey.currentContext!.findRenderObject()!
-          as RenderRepaintBoundary;
+      final boundary =
+          _overlayKey.currentContext!.findRenderObject()!
+              as RenderRepaintBoundary;
       final outputSize = _orientedCameraSize(boundary.size);
       overlay = await _writeOverlayFile(
         await _captureOverlay(outputSize),
         raw.path,
       );
-      output = await widget.videoOverlayProcessor!(
-        raw,
-        overlay,
-        outputSize,
-      );
+      output = await widget.videoOverlayProcessor!(raw, overlay, outputSize);
       await CameraService().saveVideo(output.path);
       widget.onSaved?.call(output);
       if (mounted) _show(widget.videoSavedMessage);
@@ -277,8 +271,9 @@ class _OverlayCameraWidgetState extends State<OverlayCameraWidget> {
   }
 
   Future<ui.Image> _captureOverlay(Size targetSize) async {
-    final boundary = _overlayKey.currentContext!.findRenderObject()!
-        as RenderRepaintBoundary;
+    final boundary =
+        _overlayKey.currentContext!.findRenderObject()!
+            as RenderRepaintBoundary;
     final widthRatio = targetSize.width / boundary.size.width;
     final heightRatio = targetSize.height / boundary.size.height;
     final ratio = (widthRatio + heightRatio) / 2;
@@ -298,7 +293,12 @@ class _OverlayCameraWidgetState extends State<OverlayCameraWidget> {
     final height = cameraImage.height;
     final recorder = ui.PictureRecorder();
     final canvas = Canvas(recorder);
-    final destination = Rect.fromLTWH(0, 0, width.toDouble(), height.toDouble());
+    final destination = Rect.fromLTWH(
+      0,
+      0,
+      width.toDouble(),
+      height.toDouble(),
+    );
     canvas.drawImage(cameraImage, Offset.zero, Paint());
     canvas.drawImageRect(
       overlay,

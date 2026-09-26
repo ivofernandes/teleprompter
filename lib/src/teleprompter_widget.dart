@@ -72,7 +72,8 @@ class TeleprompterWidget extends StatefulWidget {
     BuildContext context,
     bool isRecording,
     TeleprompterCaptureMode captureMode,
-  )? cameraOverlayBuilder;
+  )?
+  cameraOverlayBuilder;
 
   /// Shape of the floating button
   final ShapeBorder? floatingButtonShape;
@@ -96,11 +97,8 @@ class _TeleprompterWidgetState extends State<TeleprompterWidget> {
 
   @override
   Widget build(BuildContext context) => ChangeNotifierProvider(
-    create: (_) => TeleprompterState(
-      context,
-      widget.defaultTextColor,
-      widget.captureMode,
-    ),
+    create: (_) =>
+        TeleprompterState(context, widget.defaultTextColor, widget.captureMode),
     child: Consumer<TeleprompterState>(
       builder: (context, teleprompterState, child) {
         teleprompterState.captureMode = widget.captureMode;
@@ -129,8 +127,7 @@ class _TeleprompterWidgetState extends State<TeleprompterWidget> {
                 savedToGallery: widget.savedToGallery,
                 errorSavingToGallery: widget.errorSavingToGallery,
                 pictureSavedToGallery: widget.pictureSavedToGallery,
-                errorSavingPictureToGallery:
-                    widget.errorSavingPictureToGallery,
+                errorSavingPictureToGallery: widget.errorSavingPictureToGallery,
                 stopRecordingButton: widget.stopRecordingButton,
                 startRecordingButton: widget.startRecordingButton,
                 takePictureButton: widget.takePictureButton,

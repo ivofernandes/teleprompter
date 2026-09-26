@@ -37,13 +37,11 @@ Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac tu
       title: 'Flutter Demo',
       theme: ThemeData.dark().copyWith(
         textTheme: ThemeData.dark().textTheme.apply(
-              bodyColor: Colors.white,
-              displayColor: Colors.white,
-            ),
+          bodyColor: Colors.white,
+          displayColor: Colors.white,
+        ),
       ),
-      home: const HomeScreen(
-        text: text,
-      ),
+      home: const HomeScreen(text: text),
     );
   }
 }
@@ -51,10 +49,7 @@ Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac tu
 class HomeScreen extends StatefulWidget {
   final String text;
 
-  const HomeScreen({
-    required this.text,
-    super.key,
-  });
+  const HomeScreen({required this.text, super.key});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -67,8 +62,10 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     textEditingController.text = widget.text;
-    textEditingController.selection =
-        const TextSelection(baseOffset: 0, extentOffset: 0);
+    textEditingController.selection = const TextSelection(
+      baseOffset: 0,
+      extentOffset: 0,
+    );
   }
 
   @override
@@ -85,9 +82,7 @@ class _HomeScreenState extends State<HomeScreen> {
         appBar: AppBar(
           leading: IconButton(
             onPressed: () => Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) => const RecordingScreen(),
-              ),
+              MaterialPageRoute(builder: (context) => const RecordingScreen()),
             ),
             icon: const Icon(Icons.timer),
           ),
@@ -142,9 +137,8 @@ class _HomeScreenState extends State<HomeScreen> {
           child: const Icon(Icons.play_arrow),
           onPressed: () => Navigator.of(context).push(
             MaterialPageRoute(
-              builder: (context) => TeleprompterWidget(
-                text: textEditingController.text,
-              ),
+              builder: (context) =>
+                  TeleprompterWidget(text: textEditingController.text),
             ),
           ),
         ),
@@ -154,9 +148,7 @@ class _HomeScreenState extends State<HomeScreen> {
 }
 
 class RecordingScreen extends StatefulWidget {
-  const RecordingScreen({
-    super.key,
-  });
+  const RecordingScreen({super.key});
 
   @override
   _RecordingScreenState createState() => _RecordingScreenState();
@@ -172,9 +164,7 @@ class _RecordingScreenState extends State<RecordingScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Timer Test'),
-      ),
+      appBar: AppBar(title: const Text('Timer Test')),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -223,10 +213,7 @@ class _RecordingScreenState extends State<RecordingScreen> {
                 ],
               ),
             ),
-            const Text(
-              'Stopwatch',
-              style: TextStyle(fontSize: 20),
-            ),
+            const Text('Stopwatch', style: TextStyle(fontSize: 20)),
             const SizedBox(height: 10),
             if (!started) ...[
               const SizedBox(height: 10),
@@ -244,9 +231,7 @@ class _RecordingScreenState extends State<RecordingScreen> {
                 showMinutes: showMinutes,
                 showSeconds: showSeconds,
                 showMilliseconds: showMilliseconds,
-                style: const TextStyle(
-                  fontSize: 12,
-                ),
+                style: const TextStyle(fontSize: 12),
               ),
               const SizedBox(height: 10),
               ElevatedButton(

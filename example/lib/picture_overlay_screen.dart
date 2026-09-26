@@ -110,20 +110,21 @@ class _PictureOverlayScreenState extends State<PictureOverlayScreen> {
           const SizedBox(height: 8),
           Wrap(
             spacing: 12,
-            children: [
-              Colors.deepOrangeAccent,
-              Colors.cyanAccent,
-              Colors.purpleAccent,
-              Colors.limeAccent,
-            ].map((color) {
-              return ChoiceChip(
-                key: ValueKey(color),
-                label: const SizedBox(width: 24, height: 24),
-                avatar: CircleAvatar(backgroundColor: color),
-                selected: accentColor == color,
-                onSelected: (_) => setState(() => accentColor = color),
-              );
-            }).toList(),
+            children:
+                [
+                  Colors.deepOrangeAccent,
+                  Colors.cyanAccent,
+                  Colors.purpleAccent,
+                  Colors.limeAccent,
+                ].map((color) {
+                  return ChoiceChip(
+                    key: ValueKey(color),
+                    label: const SizedBox(width: 24, height: 24),
+                    avatar: CircleAvatar(backgroundColor: color),
+                    selected: accentColor == color,
+                    onSelected: (_) => setState(() => accentColor = color),
+                  );
+                }).toList(),
           ),
           const SizedBox(height: 24),
           FilledButton.icon(
@@ -208,7 +209,9 @@ class PictureOverlay extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: Colors.black.withValues(alpha: 0.72),
                   borderRadius: BorderRadius.circular(18),
-                  border: Border(left: BorderSide(color: accentColor, width: 5)),
+                  border: Border(
+                    left: BorderSide(color: accentColor, width: 5),
+                  ),
                   boxShadow: const [
                     BoxShadow(color: Colors.black45, blurRadius: 18),
                   ],

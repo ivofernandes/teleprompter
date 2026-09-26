@@ -180,10 +180,7 @@ class _TextScrollerComponentState extends State<TextScrollerComponent>
     if (success) {
       MySnackBar.show(context: context, text: widget.savedToGallery);
     } else {
-      MySnackBar.showError(
-        context: context,
-        text: widget.errorSavingToGallery,
-      );
+      MySnackBar.showError(context: context, text: widget.errorSavingToGallery);
     }
   }
 

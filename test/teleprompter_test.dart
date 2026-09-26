@@ -11,9 +11,7 @@ void main() {
   });
 
   test('overlay camera defaults to composited photo capture', () {
-    final widget = OverlayCameraWidget(
-      overlayBuilder: (_) => const SizedBox(),
-    );
+    final widget = OverlayCameraWidget(overlayBuilder: (_) => const SizedBox());
 
     expect(widget.captureMode, TeleprompterCaptureMode.photo);
   });
