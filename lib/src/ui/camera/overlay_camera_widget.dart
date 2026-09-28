@@ -72,10 +72,14 @@ class _OverlayCameraWidgetState extends State<OverlayCameraWidget> {
   Future<void> _prepare() async {
     try {
       final controller = await CameraService().prepareCamera();
-      if (mounted) setState(() => _controller = controller);
+      if (mounted) {
+        setState(() => _controller = controller);
+      }
     } catch (error) {
       AppLogger().error('Unable to prepare overlay camera: $error');
-      if (mounted) _show(widget.errorMessage);
+      if (mounted) {
+        _show(widget.errorMessage);
+      }
     }
   }
 
@@ -168,7 +172,9 @@ class _OverlayCameraWidgetState extends State<OverlayCameraWidget> {
   }
 
   Future<void> _capture() async {
-    if (_busy) return;
+    if (_busy) {
+      return;
+    }
     if (widget.captureMode == TeleprompterCaptureMode.photo) {
       await _takePhoto();
     } else if (_recording) {
@@ -187,16 +193,22 @@ class _OverlayCameraWidgetState extends State<OverlayCameraWidget> {
       output = await _compositePhoto(raw);
       await CameraService().saveImage(output.path);
       widget.onSaved?.call(output);
-      if (mounted) _show(widget.photoSavedMessage);
+      if (mounted) {
+        _show(widget.photoSavedMessage);
+      }
     } catch (error) {
       AppLogger().error('Unable to capture overlay photo: $error');
-      if (mounted) _show(widget.errorMessage);
+      if (mounted) {
+        _show(widget.errorMessage);
+      }
     } finally {
       await _delete(raw);
       // The gallery plugin has copied the file and clients should not rely on
       // the temporary callback path after this operation completes.
       await _delete(output);
-      if (mounted) setState(() => _busy = false);
+      if (mounted) {
+        setState(() => _busy = false);
+      }
     }
   }
 
@@ -209,7 +221,9 @@ class _OverlayCameraWidgetState extends State<OverlayCameraWidget> {
         return;
       }
       _timer = Timer.periodic(const Duration(seconds: 1), (_) {
-        if (mounted) setState(() => _elapsed += const Duration(seconds: 1));
+        if (mounted) {
+          setState(() => _elapsed += const Duration(seconds: 1));
+        }
       });
       setState(() {
         _recording = true;
@@ -217,9 +231,13 @@ class _OverlayCameraWidgetState extends State<OverlayCameraWidget> {
       });
     } catch (error) {
       AppLogger().error('Unable to start overlay video: $error');
-      if (mounted) _show(widget.errorMessage);
+      if (mounted) {
+        _show(widget.errorMessage);
+      }
     } finally {
-      if (mounted) setState(() => _busy = false);
+      if (mounted) {
+        setState(() => _busy = false);
+      }
     }
   }
 
@@ -242,10 +260,14 @@ class _OverlayCameraWidgetState extends State<OverlayCameraWidget> {
       output = await widget.videoOverlayProcessor!(raw, overlay, outputSize);
       await CameraService().saveVideo(output.path);
       widget.onSaved?.call(output);
-      if (mounted) _show(widget.videoSavedMessage);
+      if (mounted) {
+        _show(widget.videoSavedMessage);
+      }
     } catch (error) {
       AppLogger().error('Unable to finish overlay video: $error');
-      if (mounted) _show(widget.errorMessage);
+      if (mounted) {
+        _show(widget.errorMessage);
+      }
     } finally {
       await _delete(raw);
       await _delete(overlay);
